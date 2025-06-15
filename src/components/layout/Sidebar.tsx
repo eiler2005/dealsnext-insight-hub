@@ -2,10 +2,12 @@
 import { NavLink } from "react-router-dom";
 import { navItems } from "@/data/mockData";
 import { cn } from "@/lib/utils";
+import IntroHub from "./IntroHub";
 
 const Sidebar = () => {
   return (
     <aside className="w-64 flex-shrink-0 bg-secondary text-secondary-foreground flex flex-col">
+      <IntroHub />
       <div className="h-16 flex items-center px-6 border-b border-gray-700">
         <h1 className="text-xl font-bold text-primary-foreground">DealsNext Suite</h1>
       </div>
