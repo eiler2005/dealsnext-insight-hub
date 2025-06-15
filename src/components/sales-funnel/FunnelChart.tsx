@@ -17,7 +17,13 @@ const FunnelChartComponent = ({
   onStageSelect,
   selectedStage,
 }: FunnelChartComponentProps) => {
-  // Исправляем обработчик onClick под требования Recharts/Funnel
+  // Обработчик клика для сегмента воронки
+  const handleSegmentClick = (data: any) => {
+    if (onStageSelect && data?.name) {
+      onStageSelect(data.name);
+    }
+  };
+
   return (
     <div style={{ width: "100%", height: 400 }}>
       <ResponsiveContainer>
@@ -27,12 +33,7 @@ const FunnelChartComponent = ({
             dataKey="value"
             data={salesFunnelData}
             isAnimationActive
-            onClick={(_, payload) => {
-              // payload - объект данных (stage), если есть onStageSelect
-              if (onStageSelect && payload?.name) {
-                onStageSelect(payload.name);
-              }
-            }}
+            onClick={handleSegmentClick}
           >
             <LabelList position="right" fill="#000" stroke="none" dataKey="name" />
             <LabelList position="center" fill="#fff" stroke="none" dataKey="value" />
