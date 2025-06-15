@@ -1,5 +1,4 @@
 
-import { useState } from "react";
 import {
   FunnelChart,
   Funnel,
@@ -18,7 +17,7 @@ const FunnelChartComponent = ({
   onStageSelect,
   selectedStage,
 }: FunnelChartComponentProps) => {
-  // При клике вызываем onStageSelect
+  // Исправляем обработчик onClick под требования Recharts/Funnel
   return (
     <div style={{ width: "100%", height: 400 }}>
       <ResponsiveContainer>
@@ -28,9 +27,10 @@ const FunnelChartComponent = ({
             dataKey="value"
             data={salesFunnelData}
             isAnimationActive
-            onClick={(data, index) => {
-              if (onStageSelect) {
-                onStageSelect(data.name);
+            onClick={(_, payload) => {
+              // payload - объект данных (stage), если есть onStageSelect
+              if (onStageSelect && payload?.name) {
+                onStageSelect(payload.name);
               }
             }}
           >
