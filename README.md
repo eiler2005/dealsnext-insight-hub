@@ -22,14 +22,12 @@
 
 ## 🌟 DealsNext Suite Landing Page
 
-[Посмотреть HTML код](https://github.com/eiler2005/dealsnext-insight-hub/blob/main/landingpage.html)
+[➡️ Открыть лендинг в браузере](https://eiler2005.github.io/dealsnext-insight-hub/landingpage.html)
+
 **Актуальный маркетинговый лендинг для DealsNext Suite.**
 
-**Смотреть лендинг:**  
-👉 [Перейти к лендингу](https://ВАША_ССЫЛКА_GITHUB_PAGES)
-
-**Исходный код лендинга:**  
-👉 [GitHub Repo (landing page)](https://github.com/ВАШ_ГИТХАБ_ЮЗЕР/ВАШ_РЕПО)
+**Исходный код лендинга:**
+👉 [GitHub Repo (landing_page.html)](https://github.com/eiler2005/dealsnext-insight-hub/blob/main/landingpage.html)
 
 ---
 
