@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -17,6 +16,7 @@ import ProductRegistry from "./pages/ProductRegistry";
 import ClientRegistry from "./pages/ClientRegistry";
 import IndividualConditions from "./pages/IndividualConditions";
 import NotFound from "./pages/NotFound";
+import AboutSystem from "./pages/AboutSystem";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +29,7 @@ const App = () => (
         <Layout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/about" element={<AboutSystem />} />
             <Route path="/deal-profitability" element={<DealProfitability />} />
             <Route path="/client-insights" element={<ClientInsights />} />
             <Route path="/product-effectiveness" element={<ProductEffectiveness />} />
@@ -47,4 +48,3 @@ const App = () => (
 );
 
 export default App;
-
