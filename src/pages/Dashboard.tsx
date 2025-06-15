@@ -3,16 +3,11 @@ import KpiCard from "@/components/dashboard/KpiCard";
 import ProfitSlaChart from "@/components/dashboard/ProfitSlaChart";
 import AiInsightCard from "@/components/dashboard/AiInsightCard";
 import { kpiData, aiInsightsData } from "@/data/mockData";
-import IntroHub from "@/components/layout/IntroHub";
 
 const Dashboard = () => {
   return (
     <>
       <Header />
-      {/* Обучающий раздел над Дашбордом */}
-      <div className="p-6 pb-0">
-        <IntroHub />
-      </div>
       <div className="flex-1 p-6 pt-2 overflow-y-auto">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {kpiData.map((kpi, index) => (
