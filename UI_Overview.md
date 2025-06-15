@@ -12,7 +12,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Dashboard
 
-![Dashboard Screenshot](/screenshots/photo-1488590528505-98d2b5aba04b.jpg)
+![Dashboard Screenshot](public/screenshots/photo-1488590528505-98d2b5aba04b.jpg)
 
 - **Live KPIs:** Quick stats and profit visualization.
 - **AI Insights:** Growth recommendations and risk signals.
@@ -103,7 +103,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Дашборд
 
-![Дашборд](/screenshots/photo-1488590528505-98d2b5aba04b.jpg)
+![Дашборд](public/screenshots/photo-1488590528505-98d2b5aba04b.jpg)
 
 - **KPIs в реальном времени:** Основные показатели и графики прибыли.
 - **AI-инсайты:** Рекомендации по росту и сигналы рисков.
