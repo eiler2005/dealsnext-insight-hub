@@ -10,7 +10,7 @@ Below you will find key interface screenshots and descriptions of the main modul
 
 ### Dashboard
 
-![Dashboard Screenshot](./public/lovable-uploads/photo-1488590528505-98d2b5aba04b.jpg)
+![Dashboard Screenshot](/lovable-uploads/photo-1488590528505-98d2b5aba04b.jpg)
 
 - **Live KPIs:** Quick stats and profit visualization.
 - **AI Insights:** Growth recommendations and risk signals.
@@ -18,7 +18,7 @@ Below you will find key interface screenshots and descriptions of the main modul
 
 ### Product Registry
 
-![Product Registry Screenshot](./public/lovable-uploads/photo-1486312338219-ce68d2c6f44d.jpg)
+![Product Registry Screenshot](/lovable-uploads/photo-1486312338219-ce68d2c6f44d.jpg)
 
 - **Product Lifecycle:** Track product performance and profit over time.
 - **Comparison Table:** View, sort, and compare products.
@@ -26,14 +26,14 @@ Below you will find key interface screenshots and descriptions of the main modul
 
 ### Individual Conditions
 
-![Conditions Screenshot](./public/lovable-uploads/photo-1498050108023-c5249f4df085.jpg)
+![Conditions Screenshot](/lovable-uploads/photo-1498050108023-c5249f4df085.jpg)
 
 - **Custom Terms:** Discounts, installments, and commissions.
 - **Impact Highlight:** Deals profitability recalc in real time.
 
 ### AI Growth Module
 
-![AI Growth Screenshot](./public/lovable-uploads/photo-1461749280684-dccba630e2f6.jpg)
+![AI Growth Screenshot](/lovable-uploads/photo-1461749280684-dccba630e2f6.jpg)
 
 - **Automatic Insights:** Upsell/cross-sell opportunities, risk alerts.
 - **Effect Forecast:** Visualized SLA and margin improvement.
@@ -47,7 +47,7 @@ Below you will find key interface screenshots and descriptions of the main modul
 
 ### Дашборд
 
-![Дашборд](./public/lovable-uploads/photo-1488590528505-98d2b5aba04b.jpg)
+![Дашборд](/lovable-uploads/photo-1488590528505-98d2b5aba04b.jpg)
 
 - **KPIs в реальном времени:** Основные показатели и графики прибыли.
 - **AI-инсайты:** Рекомендации по росту и сигналы рисков.
@@ -55,7 +55,7 @@ Below you will find key interface screenshots and descriptions of the main modul
 
 ### Реестр продуктов
 
-![Реестр продуктов](./public/lovable-uploads/photo-1486312338219-ce68d2c6f44d.jpg)
+![Реестр продуктов](/lovable-uploads/photo-1486312338219-ce68d2c6f44d.jpg)
 
 - **Жизненный цикл:** Аналитика по кварталам, сравнения.
 - **Таблица сравнения:** Сортировка и сравнение рейтингов.
@@ -63,14 +63,14 @@ Below you will find key interface screenshots and descriptions of the main modul
 
 ### Индивидуальные условия
 
-![Индивидуальные условия](./public/lovable-uploads/photo-1498050108023-c5249f4df085.jpg)
+![Индивидуальные условия](/lovable-uploads/photo-1498050108023-c5249f4df085.jpg)
 
 - **Гибкие условия:** Скидки, комиссии, рассрочки.
 - **Влияние:** Мгновенный пересчет прибыльности сделки.
 
 ### AI Growth
 
-![AI Growth](./public/lovable-uploads/photo-1461749280684-dccba630e2f6.jpg)
+![AI Growth](/lovable-uploads/photo-1461749280684-dccba630e2f6.jpg)
 
 - **Авто-инсайты:** Новые возможности и риски.
 - **Прогноз эффектов:** Яркая визуализация итоговых показателей по SLA и марже.
