@@ -1,6 +1,7 @@
 
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 
+// Мок-данные для графиков:
 const lossData = [
   { name: "Скидки", value: 2500 },
   { name: "Бонусы", value: 1000 },
@@ -24,14 +25,15 @@ const clientTypesPie = [
 
 export default function ConditionAnalyticsWidgets() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 w-full">
       {/* Диаграмма убытков */}
-      <div className="bg-white rounded-2xl border shadow p-5 flex flex-col items-center">
-        <span className="text-xs font-bold mb-2 uppercase text-slate-400">Диаграмма убытков</span>
-        <div className="w-full h-[120px]">
+      <div className="flex flex-col h-full rounded-2xl border shadow-lg bg-white px-7 py-6">
+        <div className="text-lg font-semibold mb-2 text-slate-800">Диаграмма убытков</div>
+        <span className="text-xs font-bold mb-2 uppercase text-slate-300">от нестандартных условий</span>
+        <div className="w-full h-[120px] mt-1 mb-2">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
-              <Pie data={lossData} dataKey="value" outerRadius={55} innerRadius={32} label>
+              <Pie data={lossData} dataKey="value" outerRadius={50} innerRadius={30} label>
                 {lossData.map((d, i) => (
                   <Cell key={d.name} fill={["#f87171", "#facc15", "#38bdf8", "#7c3aed"][i]} />
                 ))}
@@ -51,9 +53,10 @@ export default function ConditionAnalyticsWidgets() {
       </div>
 
       {/* Топ-10 самых убыточных условий */}
-      <div className="bg-white rounded-2xl border shadow p-5 flex flex-col items-center">
-        <span className="text-xs font-bold mb-2 uppercase text-slate-400">Топ-10 убыточных</span>
-        <div className="w-full h-[120px]">
+      <div className="flex flex-col h-full rounded-2xl border shadow-lg bg-white px-7 py-6">
+        <div className="text-lg font-semibold mb-2 text-slate-800">Топ-10 самых убыточных условий</div>
+        <span className="text-xs font-bold mb-2 uppercase text-slate-300">за квартал</span>
+        <div className="w-full h-[120px] mt-1 mb-2">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={topLossData}>
               <XAxis dataKey="name" hide />
@@ -66,7 +69,7 @@ export default function ConditionAnalyticsWidgets() {
         <div className="flex flex-col items-center mt-1 text-xs gap-0.5">
           {topLossData.map((d, i) => (
             <span key={d.name} className="flex items-center gap-2">
-              <span className="font-bold text-slate-600">{i + 1}.</span> {d.name}
+              <span className="font-bold text-slate-500">{i + 1}.</span> {d.name}
               <span className="ml-3 text-rose-500 font-mono font-bold">{d.value} тыс ₽</span>
             </span>
           ))}
@@ -74,12 +77,13 @@ export default function ConditionAnalyticsWidgets() {
       </div>
 
       {/* Доля клиентов */}
-      <div className="bg-white rounded-2xl border shadow p-5 flex flex-col items-center">
-        <span className="text-xs font-bold mb-2 uppercase text-slate-400">Клиенты по условиям</span>
-        <div className="w-full h-[120px]">
+      <div className="flex flex-col h-full rounded-2xl border shadow-lg bg-white px-7 py-6">
+        <div className="text-lg font-semibold mb-2 text-slate-800">Доля клиентов</div>
+        <span className="text-xs font-bold mb-2 uppercase text-slate-300">по условиям</span>
+        <div className="w-full h-[120px] mt-1 mb-2">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
-              <Pie data={clientTypesPie} dataKey="value" outerRadius={50} innerRadius={32}>
+              <Pie data={clientTypesPie} dataKey="value" outerRadius={45} innerRadius={25}>
                 {clientTypesPie.map((d, i) => <Cell key={d.name} fill={d.color} />)}
               </Pie>
               <Tooltip />
@@ -97,10 +101,13 @@ export default function ConditionAnalyticsWidgets() {
       </div>
 
       {/* Среднее время согласования */}
-      <div className="bg-white rounded-2xl border shadow p-5 flex flex-col items-center">
-        <span className="text-xs font-bold mb-2 uppercase text-slate-400">Среднее время согласования</span>
-        <div className="text-3xl font-extrabold text-blue-600 my-5">2.5 дн.</div>
-        <div className="text-xs text-slate-500">За последние 3 месяца</div>
+      <div className="flex flex-col h-full rounded-2xl border shadow-lg bg-white px-7 py-6">
+        <div className="text-lg font-semibold mb-2 text-slate-800">Среднее время согласования</div>
+        <span className="text-xs font-bold mb-2 uppercase text-slate-300">за последний квартал</span>
+        <div className="flex-1 flex flex-col justify-center items-center mb-2">
+          <div className="text-4xl font-extrabold text-blue-600 my-2">2.5 дн.</div>
+        </div>
+        <div className="text-xs text-slate-500 text-center">Включая активные и завершённые условия</div>
       </div>
     </div>
   );
