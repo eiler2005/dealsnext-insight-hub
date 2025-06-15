@@ -9,6 +9,8 @@ import ReportTable from "@/components/reports-export/ReportTable";
 import { toast } from "@/hooks/use-toast";
 import ReportTabs from "@/components/reports-export/ReportTabs";
 import ReportClientsSection from "@/components/reports-export/ReportClientsSection";
+import ReportProductsSection from "@/components/reports-export/ReportProductsSection";
+import ReportManagersSection from "@/components/reports-export/ReportManagersSection";
 
 const initialTemplate = "by-deals";
 const initialCategory = "deals";
@@ -57,10 +59,10 @@ const ReportsExport = () => {
             <ReportClientsSection />
           )}
           {tab === "products" && (
-            <div className="bg-card p-6 rounded-lg shadow text-center text-muted-foreground">Вкладка "По продуктам" (шаблон — реализовать в следующих итерациях)</div>
+            <ReportProductsSection />
           )}
           {tab === "managers" && (
-            <div className="bg-card p-6 rounded-lg shadow text-center text-muted-foreground">Вкладка "По менеджерам" (шаблон — реализовать в следующих итерациях)</div>
+            <ReportManagersSection />
           )}
         </div>
       </div>
