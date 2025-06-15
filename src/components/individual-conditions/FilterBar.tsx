@@ -17,7 +17,7 @@ type Props = {
 };
 
 const CONDITION_TYPES = [
-  "",
+  "all",
   "Скидка",
   "Рассрочка",
   "Бонус",
@@ -29,7 +29,7 @@ const CONDITION_TYPES = [
   "Совместная разработка"
 ];
 const STATUSES = [
-  "",
+  "all",
   "Активно",
   "На пересогласовании",
   "Архив",
@@ -38,6 +38,14 @@ const STATUSES = [
 ];
 
 export default function FilterBar({ filters, onChange }: Props) {
+  // update onChange logic for type/status filters: treat "all" same as empty string in parent
+  const handleTypeChange = (v: string) => {
+    onChange({ ...filters, type: v === "all" ? "" : v });
+  };
+  const handleStatusChange = (v: string) => {
+    onChange({ ...filters, status: v === "all" ? "" : v });
+  };
+
   return (
     <div className="flex flex-wrap gap-3 bg-white/60 rounded-xl px-4 py-3 border items-end">
       {/* Поиск */}
@@ -54,13 +62,13 @@ export default function FilterBar({ filters, onChange }: Props) {
       {/* Тип */}
       <div>
         <Label className="mb-1 block">Тип</Label>
-        <Select value={filters.type} onValueChange={v => onChange({ ...filters, type: v })}>
+        <Select value={filters.type === "" ? "all" : filters.type} onValueChange={handleTypeChange}>
           <SelectTrigger className="w-32 text-sm" >
             <SelectValue placeholder="Тип" />
           </SelectTrigger>
           <SelectContent>
             {CONDITION_TYPES.map((type, i) =>
-              <SelectItem key={i} value={type}>{type || "Все"}</SelectItem>
+              <SelectItem key={i} value={type}>{type === "all" ? "Все" : type}</SelectItem>
             )}
           </SelectContent>
         </Select>
@@ -68,13 +76,13 @@ export default function FilterBar({ filters, onChange }: Props) {
       {/* Статус */}
       <div>
         <Label className="mb-1 block">Статус</Label>
-        <Select value={filters.status} onValueChange={v => onChange({ ...filters, status: v })}>
+        <Select value={filters.status === "" ? "all" : filters.status} onValueChange={handleStatusChange}>
           <SelectTrigger className="w-40 text-sm" >
             <SelectValue placeholder="Статус" />
           </SelectTrigger>
           <SelectContent>
             {STATUSES.map((s, i) =>
-              <SelectItem key={i} value={s}>{s || "Все"}</SelectItem>
+              <SelectItem key={i} value={s}>{s === "all" ? "Все" : s}</SelectItem>
             )}
           </SelectContent>
         </Select>
@@ -116,3 +124,4 @@ export default function FilterBar({ filters, onChange }: Props) {
     </div>
   );
 }
+
