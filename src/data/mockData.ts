@@ -1,4 +1,3 @@
-
 import {
   LayoutDashboard,
   DollarSign,
@@ -16,6 +15,7 @@ import {
   ArrowUp,
   ArrowDown,
   Scale,
+  AlertTriangle,
 } from "lucide-react";
 
 export const navItems = [
@@ -31,7 +31,15 @@ export const navItems = [
   { name: "Индивидуальные условия", path: "/individual-conditions", icon: FileSignature },
 ];
 
-export const kpiData = [
+type Kpi = {
+  title: string;
+  value: string;
+  change: string;
+  changeType: "increase" | "decrease";
+  icon: LucideIcon;
+};
+
+export const kpiData: Kpi[] = [
   {
     title: "Общая прибыль",
     value: "₽2.4 млрд",
@@ -71,7 +79,15 @@ export const chartData = [
   { month: "Июн", прибыль: 310, sla: 4.2 },
 ];
 
-export const aiInsightsData = [
+type AiInsight = {
+    title: string;
+    description: string;
+    icon: LucideIcon;
+    color: string;
+    bgColor: string;
+}
+
+export const aiInsightsData: AiInsight[] = [
   {
     title: "Потенциал роста",
     description: "3 клиента готовы к допродажам на ₽180 млн",

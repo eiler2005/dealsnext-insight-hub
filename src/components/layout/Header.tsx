@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DatePicker } from "@/components/ui/date-picker";
+// DatePicker import removed as it is defined locally below
 
 const Header = () => {
   return (
