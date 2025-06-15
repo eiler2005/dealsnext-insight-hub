@@ -2,6 +2,8 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Users } from "lucide-react";
+import ManagerAnalyticsCharts from "./ManagerAnalyticsCharts";
+import ManagerAiInsights from "./ManagerAiInsights";
 
 // Демо-данные по менеджерам
 const managersDemoRows = [
@@ -45,6 +47,9 @@ export default function ReportManagersSection() {
         <CardTitle className="text-base">Результаты по менеджерам</CardTitle>
       </CardHeader>
       <CardContent>
+        {/* Диаграммы и аналитика */}
+        <ManagerAnalyticsCharts />
+        <ManagerAiInsights />
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
