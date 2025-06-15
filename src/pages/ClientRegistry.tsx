@@ -9,11 +9,13 @@ export default function ClientRegistry() {
   const [filterManager, setFilterManager] = React.useState<string | undefined>();
   const [filterSegment, setFilterSegment] = React.useState<string | undefined>();
   const [filterRegion, setFilterRegion] = React.useState<string | undefined>();
+  const [filterSearch, setFilterSearch] = React.useState<string | undefined>();
 
-  function handleFilterChange(m?: string, s?: string, r?: string) {
+  function handleFilterChange(m?: string, s?: string, r?: string, search?: string) {
     setFilterManager(m);
     setFilterSegment(s);
     setFilterRegion(r);
+    setFilterSearch(search);
   }
 
   return (
@@ -34,6 +36,7 @@ export default function ClientRegistry() {
           filterManager={filterManager}
           filterSegment={filterSegment}
           filterRegion={filterRegion}
+          filterSearch={filterSearch}
         />
       </div>
     </>

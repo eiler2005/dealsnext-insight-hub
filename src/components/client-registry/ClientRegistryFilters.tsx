@@ -6,18 +6,23 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import React from "react";
 
 type Props = {
-  onFilterChange: (manager?: string, segment?: string, region?: string) => void;
+  onFilterChange: (manager?: string, segment?: string, region?: string, search?: string) => void;
 };
 
 export default function ClientRegistryFilters({ onFilterChange }: Props) {
-  const [manager, setManager] = React.useState("");
-  const [segment, setSegment] = React.useState("");
-  const [region, setRegion] = React.useState("");
+  const [manager, setManager] = React.useState("all");
+  const [segment, setSegment] = React.useState("all");
+  const [region, setRegion] = React.useState("all");
   const [search, setSearch] = React.useState("");
 
   React.useEffect(() => {
-    onFilterChange(manager, segment, region);
-  }, [manager, segment, region, onFilterChange]);
+    onFilterChange(
+      manager === "all" ? undefined : manager,
+      segment === "all" ? undefined : segment,
+      region === "all" ? undefined : region,
+      search.length > 0 ? search : undefined
+    );
+  }, [manager, segment, region, search, onFilterChange]);
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-3">
@@ -36,7 +41,7 @@ export default function ClientRegistryFilters({ onFilterChange }: Props) {
           <SelectValue placeholder="Менеджер" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="">Все</SelectItem>
+          <SelectItem value="all">Все</SelectItem>
           <SelectItem value="И. Иванов">И. Иванов</SelectItem>
           <SelectItem value="А. Смирнова">А. Смирнова</SelectItem>
           <SelectItem value="Д. Гринев">Д. Гринев</SelectItem>
@@ -47,7 +52,7 @@ export default function ClientRegistryFilters({ onFilterChange }: Props) {
           <SelectValue placeholder="Сегмент" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="">Все</SelectItem>
+          <SelectItem value="all">Все</SelectItem>
           <SelectItem value="ФинТех">Финансы</SelectItem>
           <SelectItem value="Глобал">Торговля</SelectItem>
           <SelectItem value="Север">Строительство</SelectItem>
@@ -58,9 +63,10 @@ export default function ClientRegistryFilters({ onFilterChange }: Props) {
           <SelectValue placeholder="Регион" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="">Все</SelectItem>
-          <SelectItem value="И. Иванов">Москва</SelectItem>
-          <SelectItem value="А. Смирнова">СПб</SelectItem>
+          <SelectItem value="all">Все</SelectItem>
+          <SelectItem value="msk">Москва</SelectItem>
+          <SelectItem value="spb">СПб</SelectItem>
+          <SelectItem value="ural">Урал</SelectItem>
         </SelectContent>
       </Select>
       {/* Кнопки */}

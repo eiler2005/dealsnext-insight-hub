@@ -1,3 +1,4 @@
+
 import { Table, TableHeader, TableBody, TableCell, TableRow, TableHead } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 
@@ -11,8 +12,11 @@ type Client = {
   lastContact: string;
   status: string;
   custom: string;
+  segment?: string;
+  region?: string;
 };
 
+// Добавим segment и region для фильтрации (демо)
 const clients: Client[] = [
   {
     id: "1",
@@ -23,7 +27,9 @@ const clients: Client[] = [
     sla: "92%",
     lastContact: "2025-06-03",
     status: "Активный",
-    custom: "—"
+    custom: "—",
+    segment: "ФинТех",
+    region: "msk"
   },
   {
     id: "2",
@@ -34,7 +40,9 @@ const clients: Client[] = [
     sla: "76%",
     lastContact: "2025-04-20",
     status: "Под риском",
-    custom: "Спец. условия"
+    custom: "Спец. условия",
+    segment: "Глобал",
+    region: "spb"
   },
   {
     id: "3",
@@ -45,7 +53,9 @@ const clients: Client[] = [
     sla: "—",
     lastContact: "2025-01-14",
     status: "Заморожен",
-    custom: "—"
+    custom: "—",
+    segment: "Север",
+    region: "ural"
   }
 ];
 
@@ -65,16 +75,24 @@ function statusClass(status: string) {
   return "";
 }
 
-export default function ClientRegistryTable({ filterManager, filterSegment, filterRegion }: {
+export default function ClientRegistryTable({ filterManager, filterSegment, filterRegion, filterSearch }: {
   filterManager?: string;
   filterSegment?: string;
   filterRegion?: string;
+  filterSearch?: string;
 }) {
-  // Эмуляция фильтрации (demo)
+  // Эмулируем фильтрацию
   let filtered = clients;
-  if (filterManager) filtered = filtered.filter(c=>c.manager.includes(filterManager));
-  if (filterRegion) filtered = filtered.filter(c=>c.manager.includes(filterRegion));
-  if (filterSegment) filtered = filtered.filter(c=>c.name.includes(filterSegment));
+  if (filterManager) filtered = filtered.filter(c => c.manager === filterManager);
+  if (filterRegion) filtered = filtered.filter(c => c.region === filterRegion);
+  if (filterSegment) filtered = filtered.filter(c => c.segment === filterSegment);
+  if (filterSearch) {
+    filtered = filtered.filter(
+      c =>
+        c.name.toLowerCase().includes(filterSearch.toLowerCase()) ||
+        c.manager.toLowerCase().includes(filterSearch.toLowerCase())
+    );
+  }
 
   return (
     <div className="rounded-xl border shadow bg-white/70 dark:bg-slate-900/60 overflow-x-auto">
@@ -119,7 +137,7 @@ export default function ClientRegistryTable({ filterManager, filterSegment, filt
       </table>
       {/* Простая пагинация-заглушка */}
       <div className="flex items-center justify-between px-4 py-3 border-t text-xs bg-white/60 dark:bg-slate-900/40">
-        <span>Показано 1–3 из 3</span>
+        <span>Показано {filtered.length > 0 ? `1–${filtered.length} из ${filtered.length}` : "0"} </span>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" disabled>Назад</Button>
           <Button variant="outline" size="sm" disabled>Вперёд</Button>
