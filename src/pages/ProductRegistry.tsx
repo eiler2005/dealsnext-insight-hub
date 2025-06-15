@@ -8,6 +8,7 @@ import ProductCardSidebar from "@/components/product-registry/ProductCardSidebar
 import ProductRoiScore from "@/components/product-registry/ProductRoiScore";
 import ProductAnalyticsSection from "@/components/product-registry/ProductAnalyticsSection";
 import ProductRatingComparisonSection from "@/components/product-registry/ProductRatingComparisonSection";
+import DashboardIntroSection from "@/components/product-registry/DashboardIntroSection";
 
 // Демо-данные с метками и ROI Score
 import { demoProducts } from "@/data/productDemoData";
@@ -49,6 +50,8 @@ export default function ProductRegistry() {
       <Header />
       <div className="flex-1 flex flex-col min-h-screen">
         <div className="flex-1 p-4 md:p-8">
+          {/* Новый вводный блок — Дашборд руководителя + реестр */}
+          <DashboardIntroSection />
           <div className="flex flex-col md:flex-row md:items-center gap-4 justify-between mb-4">
             <h1 className="text-3xl font-bold">Реестр продуктов</h1>
             <div className="flex gap-2 items-end flex-wrap">
