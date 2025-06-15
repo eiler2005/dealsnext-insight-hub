@@ -2,15 +2,67 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus, Filter, Download } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import React from "react";
 
-export default function ClientRegistryFilters() {
+type Props = {
+  onFilterChange: (manager?: string, segment?: string, region?: string) => void;
+};
+
+export default function ClientRegistryFilters({ onFilterChange }: Props) {
+  const [manager, setManager] = React.useState("");
+  const [segment, setSegment] = React.useState("");
+  const [region, setRegion] = React.useState("");
+  const [search, setSearch] = React.useState("");
+
+  React.useEffect(() => {
+    onFilterChange(manager, segment, region);
+  }, [manager, segment, region, onFilterChange]);
+
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-3">
       {/* Поиск */}
       <div className="relative flex-1">
-        <Input placeholder="Поиск по клиенту или менеджеру" className="pl-10" />
+        <Input
+          placeholder="Поиск по клиенту или менеджеру"
+          className="pl-10"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
         <Filter className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
       </div>
+      <Select value={manager} onValueChange={setManager}>
+        <SelectTrigger className="w-[150px]">
+          <SelectValue placeholder="Менеджер" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="">Все</SelectItem>
+          <SelectItem value="И. Иванов">И. Иванов</SelectItem>
+          <SelectItem value="А. Смирнова">А. Смирнова</SelectItem>
+          <SelectItem value="Д. Гринев">Д. Гринев</SelectItem>
+        </SelectContent>
+      </Select>
+      <Select value={segment} onValueChange={setSegment}>
+        <SelectTrigger className="w-[150px]">
+          <SelectValue placeholder="Сегмент" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="">Все</SelectItem>
+          <SelectItem value="ФинТех">Финансы</SelectItem>
+          <SelectItem value="Глобал">Торговля</SelectItem>
+          <SelectItem value="Север">Строительство</SelectItem>
+        </SelectContent>
+      </Select>
+      <Select value={region} onValueChange={setRegion}>
+        <SelectTrigger className="w-[150px]">
+          <SelectValue placeholder="Регион" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="">Все</SelectItem>
+          <SelectItem value="И. Иванов">Москва</SelectItem>
+          <SelectItem value="А. Смирнова">СПб</SelectItem>
+        </SelectContent>
+      </Select>
       {/* Кнопки */}
       <div className="flex flex-row gap-2">
         <Button variant="default" size="sm">
