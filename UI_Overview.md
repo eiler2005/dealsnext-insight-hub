@@ -22,7 +22,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Product Registry
 
-![Product Registry Screenshot](/screenshots/photo-1486312338219-ce68d2c6f44d.jpg)
+![Product Registry Screenshot](public/screenshots/ProductRegistryScreenshot.png)
 
 - **Product Lifecycle:** Track product performance and profit over time.
 - **Comparison Table:** View, sort, and compare products.
@@ -32,7 +32,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Individual Conditions
 
-![Conditions Screenshot](/screenshots/photo-1498050108023-c5249f4df085.jpg)
+![Conditions Screenshot](public/screenshots/IndTermsScreenshot.png)
 
 - **Custom Terms:** Discounts, installments, and commissions.
 - **Impact Highlight:** Deals profitability recalc in real time.
@@ -41,7 +41,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### AI Growth Module
 
-![AI Growth Screenshot](/screenshots/photo-1461749280684-dccba630e2f6.jpg)
+![AI Growth Screenshot](public/screenshots/AIGrowthsScreenshot.png)
 
 - **Automatic Insights:** Upsell/cross-sell opportunities, risk alerts.
 - **Effect Forecast:** Visualized SLA and margin improvement.
@@ -50,7 +50,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Deals List
 
-![Deals List Screenshot](/screenshots/91dfcd7a-3a44-4c9a-a46f-f978fb769d0d.png)
+![Deals List Screenshot](public/screenshots/DealsListScreenshot.png)
 
 - **Full deal list:** Easy navigation and filtering.
 - **Status Indicators:** Understand deal health at a glance.
@@ -113,7 +113,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Реестр продуктов
 
-![Реестр продуктов](/screenshots/photo-1486312338219-ce68d2c6f44d.jpg)
+![Реестр продуктов](public/screenshots/ProductRegistryScreenshot.png)
 
 - **Жизненный цикл:** Аналитика по кварталам, сравнения.
 - **Таблица сравнения:** Сортировка и сравнение рейтингов.
@@ -123,7 +123,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Индивидуальные условия
 
-![Индивидуальные условия](/screenshots/photo-1498050108023-c5249f4df085.jpg)
+![Индивидуальные условия](public/screenshots/IndTermsScreenshot.png)
 
 - **Гибкие условия:** Скидки, комиссии, рассрочки.
 - **Влияние:** Мгновенный пересчет прибыльности сделки.
@@ -132,7 +132,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### AI Growth
 
-![AI Growth](/screenshots/photo-1461749280684-dccba630e2f6.jpg)
+![AI Growth](public/screenshots/AIGrowthsScreenshot.png)
 
 - **Авто-инсайты:** Новые возможности и риски.
 - **Прогноз эффектов:** Яркая визуализация итоговых показателей по SLA и марже.
@@ -141,7 +141,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Список сделок
 
-![Список сделок](/screenshots/91dfcd7a-3a44-4c9a-a46f-f978fb769d0d.png)
+![Список сделок](public/screenshots/DealsListScreenshot.png)
 
 - **Полный перечень:** Удобная навигация и фильтрация.
 - **Статусы:** Визуальные индикаторы успешности сделки.
