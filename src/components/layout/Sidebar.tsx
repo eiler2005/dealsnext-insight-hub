@@ -2,7 +2,17 @@
 import { NavLink } from "react-router-dom";
 import { navItems } from "@/data/mockData";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, DollarSign, Users, Package, BarChart2, LineChart, BrainCircuit, FileText, Book, User2, FileMinus } from "lucide-react";
+import {
+  LayoutDashboard, DollarSign, Users, Package, BarChart2, LineChart, BrainCircuit, FileText, Book, User2, FileMinus
+} from "lucide-react";
+
+// Цвета для светлой и современной гаммы
+const BG_LIGHT = "#f4f6fa"; // светлый фон боковой панели
+const NAV_ICON = "#22304a"; // тёмно-синий для иконок
+const NAV_ACTIVE_BG = "#e8f0fd"; // очень светло-голубой для активного
+const NAV_ACTIVE_ICON = "#2563eb"; // акцент для активной иконки (посинее)
+const NAV_TEXT = "#22304a"; // текст для неактивных пунктов
+const NAV_ACTIVE_TEXT = "#15346e"; // чуть темнее для выбранного
 
 const customNavItems = [
   {
@@ -26,7 +36,6 @@ const iconMap: Record<string, any> = {
   "product-registry": Book,
   "client-registry": User2,
   "individual-conditions": FileMinus,
-  // можно добавить свои
 };
 
 const Sidebar = () => {
@@ -34,7 +43,7 @@ const Sidebar = () => {
     <aside
       className="w-72 min-w-[220px] flex-shrink-0 flex flex-col border-r border-slate-200/80 shadow-sm rounded-tr-2xl rounded-br-lg"
       style={{
-        background: "linear-gradient(to bottom, #253052 0%, #2b3956 50%, #314069 100%)"
+        background: BG_LIGHT // СВЕТЛЫЙ ФОН
       }}
     >
       <div className="h-20 flex items-center px-8 border-b border-slate-200/50 gap-3">
@@ -44,7 +53,7 @@ const Sidebar = () => {
           className="w-10 h-10 rounded-xl shadow-md bg-white/90 object-contain"
           draggable={false}
         />
-        <h1 className="text-xl font-extrabold tracking-tight text-primary-foreground font-sans select-none">
+        <h1 className="text-xl font-extrabold tracking-tight font-sans select-none" style={{color: NAV_TEXT}}>
           DealsNext Suite
         </h1>
       </div>
@@ -58,30 +67,38 @@ const Sidebar = () => {
               to={item.path}
               className={({ isActive }) =>
                 cn(
-                  "flex items-center gap-3 px-4 py-2.5 text-[15px] font-medium rounded-md group transition-all",
+                  "flex items-center gap-3 px-4 py-2.5 text-[15px] font-medium rounded-lg group transition-all",
                   isActive
                     ? isAbout
-                      // Для "О системе" выделяем немного, но нежно 
-                      ? "bg-blue-100 text-blue-800 font-semibold shadow-xs border border-blue-200"
-                      : "bg-primary/90 text-white border border-primary/50"
+                      ? "bg-[#eaf4ff] font-semibold shadow-xs border border-blue-100"
+                      : "" // Используем inline-стили ниже
                     : isAbout
-                      ? "hover:bg-blue-50 hover:text-blue-900 text-blue-900 border border-transparent"
-                      : "hover:bg-primary/10 hover:text-primary",
-                  isAbout ? "transition-colors" : "transition-colors"
+                      ? "hover:bg-[#f3f7fb] hover:text-[#2b3960] text-[#2b3960] border border-transparent"
+                      : "hover:bg-[#f3f7fb] hover:text-[#15346e]",
+                  "transition-colors"
                 )
               }
-              style={isAbout
-                ? { boxShadow: "0 2px 8px -2px #3b82f670" }
-                : undefined
+              style={(isAbout || window.location.pathname === item.path)
+                ? {
+                  background: NAV_ACTIVE_BG,
+                  color: NAV_ACTIVE_TEXT,
+                  border: "1.5px solid #dbeafe",
+                }
+                : {
+                  color: NAV_TEXT
+                }
               }
               tabIndex={0}
             >
               {Icon && (
                 <Icon
-                  className={cn(
-                    "w-[20px] h-[20px] shrink-0",
-                    isAbout ? "text-blue-700" : "text-primary"
-                  )}
+                  className="w-[20px] h-[20px] shrink-0"
+                  style={{
+                    color:
+                      window.location.pathname === item.path || isAbout
+                        ? NAV_ACTIVE_ICON
+                        : NAV_ICON,
+                  }}
                 />
               )}
               <span>{item.name}</span>
@@ -96,7 +113,7 @@ const Sidebar = () => {
       </nav>
       <div className="h-5" />
       {/* Легкая подсветка нижней грани для современного вида */}
-      <div className="w-full h-[4px] bg-gradient-to-r from-blue-400/80 via-primary/60 to-transparent opacity-60 rounded-bl-xl" />
+      <div className="w-full h-[4px] bg-gradient-to-r from-blue-200 via-blue-300 to-transparent opacity-50 rounded-bl-xl" />
     </aside>
   );
 };
