@@ -1,4 +1,39 @@
-# Welcome to your Lovable project
+# Welcome to my first Lovable project - # DealsNextV0
+
+## 🇷🇺 Описание
+
+**DealsNextV0** — это первая версия интеллектуальной системы для автоматизации и оптимизации поиска выгодных предложений и сделок. Проект реализован с использованием AI-инструмента **Lovable**, что позволило значительно ускорить процесс разработки.
+
+Цель системы — предоставить пользователю быстрый доступ к наиболее актуальным и релевантным предложениям (скидки, акции, распродажи) из разных источников. Система анализирует входящие данные, находит лучшие сделки и выводит их в удобном формате.
+
+🔧 Основной функционал:
+- Поиск и агрегация предложений в режиме реального времени
+- Интеллектуальный отбор самых выгодных сделок
+- Интуитивно понятный интерфейс для пользователя
+
+🛠 Особенности:
+- 💡 Это первая версия проекта
+- ⚙️ Разработка с помощью AI Tool — **Lovable**
+- 🚀 Ускоренный цикл создания MVP с использованием ИИ
+
+---
+
+## 🇺🇸 Description
+
+**DealsNextV0** is the first version of an intelligent system for automating and optimizing the discovery of great deals and offers. The project is built using the AI-powered rapid development tool **Lovable**, which significantly accelerated the development process.
+
+The goal of the system is to give users quick access to the most relevant and up-to-date offers (discounts, promotions, sales) from various sources. The system analyzes incoming data, filters out the best deals, and presents them in a user-friendly format.
+
+🔧 Core Features:
+- Real-time deal discovery and aggregation
+- Intelligent filtering of the best offers
+- Simple and intuitive user interface
+
+🛠 Highlights:
+- 💡 This is the first version of the project
+- ⚙️ Developed using the AI Tool — **Lovable**
+- 🚀 Rapid MVP creation enabled by AI
+
 
 ## Project info
 
