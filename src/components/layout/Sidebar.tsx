@@ -14,7 +14,6 @@ const customNavItems = [
   ...navItems,
 ];
 
-// Сопоставление иконок для ключевых разделов — можно доработать под ваши нужды
 const iconMap: Record<string, any> = {
   "layout-dashboard": LayoutDashboard,
   "dashboard": LayoutDashboard,
@@ -32,7 +31,12 @@ const iconMap: Record<string, any> = {
 
 const Sidebar = () => {
   return (
-    <aside className="w-72 min-w-[220px] flex-shrink-0 bg-gradient-to-b from-[#1a2440] via-[#212a45] to-[#233052] text-secondary-foreground flex flex-col border-r border-slate-200/80 shadow-sm rounded-tr-2xl rounded-br-lg">
+    <aside
+      className="w-72 min-w-[220px] flex-shrink-0 flex flex-col border-r border-slate-200/80 shadow-sm rounded-tr-2xl rounded-br-lg"
+      style={{
+        background: "linear-gradient(to bottom, #253052 0%, #2b3956 50%, #314069 100%)"
+      }}
+    >
       <div className="h-20 flex items-center px-8 border-b border-slate-200/50 gap-3">
         <img
           src="/lovable-uploads/1c154341-dca0-4cc0-86a7-39b00e3ec66d.png"
