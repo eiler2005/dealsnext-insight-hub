@@ -32,8 +32,10 @@ const profitTrend = [
 ];
 
 // SLA по сегментам (группировка по type)
-function getSlaByType(clients) {
-  const byType = {};
+function getSlaByType(
+  clients: typeof clientsData
+): { type: string; avgSla: number }[] {
+  const byType: Record<string, { sum: number; count: number }> = {};
   clients.forEach((c) => {
     const type = c.type ?? "Станд.";
     if (!byType[type]) byType[type] = { sum: 0, count: 0 };
@@ -42,14 +44,16 @@ function getSlaByType(clients) {
   });
   return Object.entries(byType).map(([type, v]) => ({
     type,
-    avgSla: (v.sum / v.count).toFixed(2),
+    avgSla: Number((v.sum / v.count).toFixed(2)),
   }));
 }
 const slaByType = getSlaByType(clientsData);
 
 // Прибыль по отраслям (pie)
-function getProfitByIndustry(clients) {
-  const by = {};
+function getProfitByIndustry(
+  clients: typeof clientsData
+): { name: string; value: number }[] {
+  const by: Record<string, number> = {};
   clients.forEach((c) => {
     if (!by[c.industry]) by[c.industry] = 0;
     by[c.industry] += c.profit;

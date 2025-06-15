@@ -7,6 +7,7 @@ import ClientQuickView from "@/components/client-insights/ClientQuickView";
 import { clientsData, Client } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
+import ClientTrendsCharts from "@/components/client-insights/ClientTrendsCharts";
 
 // исправленный стейт (sla: [number, number], profitRange: [number, number])
 const initialFilters = {
