@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { LayoutGrid, Info, layoutDashboard } from "lucide-react";
+import { LayoutGrid, Info, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const CARDS = [
@@ -20,7 +20,7 @@ const CARDS = [
     tooltip: "В каждой сделке учитываются скидки, комиссии, доп. условия.",
   },
   {
-    icon: <layoutDashboard className="text-blue-600 w-8 h-8" />,
+    icon: <LayoutDashboard className="text-blue-600 w-8 h-8" />,
     title: "Аналитика",
     desc: "Контроль исполнения по сделке, отклонениям и прибыльности. Аналитика по клиентам и продуктам. Выявление зон риска.",
     tooltip: "Всё прозрачно — видны и сильные, и слабые места по сделкам.",
@@ -51,7 +51,7 @@ export default function IntroHub() {
         <div className="font-bold text-base flex items-center gap-2">
           <span role="img" aria-label="Лупа">🔎</span> Обзор DealsNext
         </div>
-        <Button size="xs" variant="ghost" onClick={() => setCollapsed(true)}>
+        <Button size="sm" variant="ghost" onClick={() => setCollapsed(true)}>
           Свернуть
         </Button>
       </div>
