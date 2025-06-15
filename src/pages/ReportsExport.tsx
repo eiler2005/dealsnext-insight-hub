@@ -28,12 +28,6 @@ const ReportsExport = () => {
     });
   };
 
-  // При смене шаблона авто-выбор категории
-  const handleTemplateChange = (tpl: string) => {
-    setTemplate(tpl);
-    setCategory(tpl === "by-managers" ? "managers" : "deals");
-  };
-
   return (
     <>
       <Header />
