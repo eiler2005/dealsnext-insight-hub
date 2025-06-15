@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -124,7 +123,7 @@ export default function ReportClientsSection() {
           </CardContent>
         </Card>
       </div>
-      <ReportDetailModal open={!!detail} row={detail} onClose={() => setDetail(null)} type="client" />
+      <ReportDetailModal open={!!detail} row={detail} onClose={() => setDetail(null)} type="deal" />
     </div>
   );
 }
