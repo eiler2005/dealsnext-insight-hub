@@ -1,6 +1,5 @@
-
 import React, { useState } from "react";
-import { demoProducts as baseProducts } from "@/pages/ProductRegistry"; // Используем уже заведенные демо-данные
+import { demoProducts as baseProducts } from "@/data/productDemoData"; // Используем уже заведенные демо-данные
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 import { CheckCircle, AlertCircle, TrendingUp, TrendingDown, Users, Star } from "lucide-react";

@@ -10,56 +10,7 @@ import ProductAnalyticsSection from "@/components/product-registry/ProductAnalyt
 import ProductRatingComparisonSection from "@/components/product-registry/ProductRatingComparisonSection";
 
 // Демо-данные с метками и ROI Score
-const demoProducts = [
-  {
-    id: 1,
-    name: "API Платформа",
-    type: "Интеграция",
-    description: "Внешний API для интеграции в ИТ-ландшафт",
-    profit: 12300000,
-    avgProfit: 4100000,
-    margin: 22,
-    clients: 57,
-    deals: 18,
-    sla: 2.8,
-    status: "active",
-    roi: 89,
-    category: "IT",
-    tag: "Флагман",
-  },
-  {
-    id: 2,
-    name: "Лизинговый модуль",
-    type: "Фин. продукт",
-    description: "Лизинг для корпоративных клиентов",
-    profit: -2500000,
-    avgProfit: -800000,
-    margin: 6,
-    clients: 9,
-    deals: 7,
-    sla: 5.4,
-    status: "loss",
-    roi: 31,
-    category: "Финансы",
-    tag: "На пересмотр",
-  },
-  {
-    id: 3,
-    name: "CRM-расширение",
-    type: "SaaS-модуль",
-    description: "Облачное расширение функций CRM",
-    profit: 8500000,
-    avgProfit: 2125000,
-    margin: 18,
-    clients: 32,
-    deals: 4,
-    sla: 3.2,
-    status: "review",
-    roi: 74,
-    category: "ИТ",
-    tag: "Низкая активность",
-  },
-];
+import { demoProducts } from "@/data/productDemoData";
 
 const statusIcons: Record<string, JSX.Element> = {
   active: <CircleCheck className="inline text-green-500 mr-1" />,
