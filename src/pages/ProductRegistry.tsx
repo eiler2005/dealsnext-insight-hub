@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Search, CircleCheck, CircleX, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +6,7 @@ import Header from "@/components/layout/Header";
 import ProductAnalyticsSidebar from "@/components/product-registry/ProductAnalyticsSidebar";
 import ProductCardSidebar from "@/components/product-registry/ProductCardSidebar";
 import ProductRoiScore from "@/components/product-registry/ProductRoiScore";
+import ProductAnalyticsSection from "@/components/product-registry/ProductAnalyticsSection";
 
 // Демо-данные с метками и ROI Score
 const demoProducts = [
@@ -218,13 +218,8 @@ export default function ProductRegistry() {
               </TableBody>
             </Table>
           </div>
-          {/* Новое размещение аналитики снизу страницы */}
-          <div className="mt-6 flex flex-col gap-6 md:flex-row md:gap-6">
-            <div className="w-full md:w-1/3">
-              {/* Продуктовый Radar */}
-              <ProductAnalyticsSidebar />
-            </div>
-          </div>
+          {/* Новый красивый секционный блок аналитики */}
+          <ProductAnalyticsSection />
         </div>
       </div>
       {/* Сайдбар по продукту, если открыт */}
