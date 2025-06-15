@@ -1,4 +1,3 @@
-
 import { useState, useMemo } from "react";
 import Header from "@/components/layout/Header";
 import ClientFilters from "@/components/client-insights/ClientFilters";
@@ -83,6 +82,8 @@ const ClientInsights = () => {
         <div className="w-full md:w-2/3 lg:w-3/4 flex flex-col gap-4">
           <h1 className="text-2xl font-bold mb-3">👥 Инсайты по клиентам</h1>
           <ClientFilters filters={filters} setFilters={setFilters} />
+          {/* ======= ДОБАВЛЕН блок графиков ======= */}
+          <ClientTrendsCharts />
           <ClientKpiCards />
           <div className="flex justify-between mb-2 mt-4">
             <div className="text-base font-medium">Каталог клиентов</div>
