@@ -1,11 +1,11 @@
-
 import Header from "@/components/layout/Header";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import ConditionSidebarWidgets from "@/components/individual-conditions/ConditionSidebarWidgets";
 import ConditionDetailModal from "@/components/individual-conditions/ConditionDetailModal";
 import ConditionTypeTiles from "@/components/individual-conditions/ConditionTypeTiles";
 import ConditionAnalyticsWidgets from "@/components/individual-conditions/ConditionAnalyticsWidgets";
+import FilterBar from "@/components/individual-conditions/FilterBar";
 import { FilePlus, FileText } from "lucide-react";
 
 // Мок-данные
@@ -235,6 +235,32 @@ const conditions = [
 const IndividualConditions = () => {
   const [selected, setSelected] = useState<number | null>(null);
 
+  // --- фильтры ---
+  const [filters, setFilters] = useState({
+    query: "",
+    type: "",
+    status: "",
+    minMargin: "",
+    deviation: "",
+    endDate: "",
+  });
+
+  // --- фильтрация данных условий ---
+  const filteredConditions = useMemo(() => {
+    return conditions.filter((c) => {
+      if (filters.query && !(
+        c.client.toLowerCase().includes(filters.query.toLowerCase()) ||
+        c.product.toLowerCase().includes(filters.query.toLowerCase())
+      )) return false;
+      if (filters.type && c.type !== filters.type) return false;
+      if (filters.status && !c.status.includes(filters.status)) return false;
+      if (filters.minMargin && Number(c.margin.replace("%", "")) < Number(filters.minMargin)) return false;
+      if (filters.deviation && Number(c.deviation.replace("%", "")) < Number(filters.deviation)) return false;
+      if (filters.endDate && c.endDate.split('.').reverse().join('-') < filters.endDate) return false;
+      return true;
+    })
+  }, [filters]);
+
   return (
     <>
       <Header />
@@ -254,39 +280,9 @@ const IndividualConditions = () => {
 
         {/* 4. Основная таблица */}
         <section className="flex-1 flex flex-col gap-5 mt-2">
-          {/* Верхняя панель с фильтрами и кнопками */}
-          <div className="bg-white/90 rounded-2xl p-4 border shadow flex flex-col md:flex-row gap-4 md:items-end justify-between sticky top-0 z-10">
-            <div className="flex gap-3 flex-wrap">
-              <input type="search" placeholder="Поиск по клиенту/продукту" className="border px-3 py-2 rounded-md w-52 text-sm" />
-              <select className="border px-3 py-2 rounded-md text-sm" defaultValue="">
-                <option value="">Тип</option>
-                <option value="discount">Скидка</option>
-                <option value="installment">Рассрочка</option>
-                <option value="bonus">Бонус</option>
-                <option value="sladelay">SLA-отступление</option>
-              </select>
-              <select className="border px-3 py-2 rounded-md text-sm" defaultValue="">
-                <option value="">Статус</option>
-                <option value="active">Активно</option>
-                <option value="review">На пересогласовании</option>
-                <option value="archive">Архив</option>
-              </select>
-              <input type="date" className="border px-3 py-2 rounded-md text-sm" />
-              <input type="number" min={-100} max={100} className="border px-3 py-2 rounded-md w-24 text-sm" placeholder="Мин. маржа" />
-              <input type="number" min={-100} max={100} className="border px-3 py-2 rounded-md w-24 text-sm" placeholder="Отклонение" />
-            </div>
-            <div className="flex gap-2">
-              <Button variant="outline" className="flex items-center gap-2">
-                <FileText className="w-4 h-4" /> Экспорт
-              </Button>
-              <Button variant="outline" className="flex items-center gap-2">
-                <FilePlus className="w-4 h-4" /> Добавить условие
-              </Button>
-              <Button variant="default" className="flex items-center gap-2">
-                Проверить маржинальность
-              </Button>
-            </div>
-          </div>
+          {/* --- фильтры условия --- */}
+          <FilterBar filters={filters} onChange={setFilters} />
+
           {/* Таблица условий */}
           <div className="flex-1 mt-2 overflow-auto animate-fade-in">
             <table className="w-full min-w-[900px] border-separate border-spacing-y-2">
@@ -295,7 +291,7 @@ const IndividualConditions = () => {
                   <th className="rounded-l-xl px-4 py-3">Клиент</th>
                   <th className="px-4 py-3">Продукт</th>
                   <th className="px-4 py-3">Тип</th>
-                  <th className="px-4 py-3">Условие</th>
+                  <th className="px-4 py-3 bg-primary/10 border-x-2 border-primary text-primary">Условие</th>
                   <th className="px-4 py-3">Дата окончания</th>
                   <th className="px-4 py-3">Отклонение</th>
                   <th className="px-4 py-3">Маржа</th>
@@ -304,7 +300,7 @@ const IndividualConditions = () => {
                 </tr>
               </thead>
               <tbody>
-                {conditions.map((cond) => (
+                {filteredConditions.map((cond) => (
                   <tr
                     key={cond.id}
                     className="bg-white border shadow rounded-xl hover:scale-[1.01] hover:shadow-lg transition-all cursor-pointer"
@@ -312,7 +308,9 @@ const IndividualConditions = () => {
                     <td className="px-4 py-3 font-semibold">{cond.client}</td>
                     <td className="px-4 py-3">{cond.product}</td>
                     <td className="px-4 py-3">{cond.type}</td>
-                    <td className="px-4 py-3">{cond.term}</td>
+                    <td className="px-4 py-3 bg-primary/10 border-x-2 border-primary text-primary font-semibold text-[1.03em]">
+                      {cond.term}
+                    </td>
                     <td className="px-4 py-3">{cond.endDate}</td>
                     <td className="px-4 py-3">
                       <span className={`${+cond.deviation.replace('%','') < 0 ? "text-rose-600 font-bold" : "text-slate-800"}`}>
@@ -330,6 +328,10 @@ const IndividualConditions = () => {
                           ? "px-2 py-1 text-xs font-semibold bg-green-100 text-green-700 rounded"
                           : cond.status === "На пересогласовании"
                           ? "px-2 py-1 text-xs font-semibold bg-amber-100 text-amber-700 rounded"
+                          : cond.status === "Критично"
+                          ? "px-2 py-1 text-xs font-semibold bg-orange-100 text-orange-700 rounded"
+                          : cond.status === "Риск"
+                          ? "px-2 py-1 text-xs font-semibold bg-rose-100 text-rose-700 rounded"
                           : "px-2 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded"
                       }>
                         {cond.status}
@@ -342,6 +344,11 @@ const IndividualConditions = () => {
                     </td>
                   </tr>
                 ))}
+                {filteredConditions.length === 0 && (
+                  <tr>
+                    <td className="text-center py-8 text-slate-500" colSpan={9}>Нет условий по фильтру</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
