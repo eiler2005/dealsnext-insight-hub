@@ -1,14 +1,15 @@
+
 import React, { useState } from "react";
-import { demoProducts as baseProducts } from "@/data/productDemoData"; // Используем уже заведенные демо-данные
+import { demoProducts as baseProducts } from "@/data/productDemoData";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
-import { CheckCircle, AlertCircle, TrendingUp, TrendingDown, Users, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
 const metrics = [
-  { key: "profit", label: "💰 Прибыль" },
-  { key: "sla", label: "⚙️ SLA" },
-  { key: "deals", label: "📊 Активность" },
-  { key: "margin", label: "📈 Маржа" },
+  { key: "profit", label: <span>💰 Прибыль</span> },
+  { key: "sla", label: <span>🌐 SLA</span> },
+  { key: "deals", label: <span>📊 Активность</span> },
+  { key: "margin", label: <span>📈 Маржа</span> },
 ];
 
 function getColorByMetric(val: number, key: string) {
@@ -39,6 +40,12 @@ export default function ProductRatingComparisonSection() {
       ? selected.map(id => products.find(p => p.id === id)).filter(Boolean)
       : [];
 
+  // Пример для сравнения: показываем всегда, если выбрано < 2 продуктов
+  const exampleProducts = [
+    products[1], // B
+    products[2], // C
+  ];
+
   // Пример простого AI-инсайта на базе сравнения
   let aiInsight = "";
   if (comparison.length === 2) {
@@ -66,7 +73,7 @@ export default function ProductRatingComparisonSection() {
           <Tabs defaultValue={activeTab} value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="flex mb-3 w-full justify-start gap-2 flex-wrap">
               {metrics.map(m => (
-                <TabsTrigger key={m.key} value={m.key} className="px-3">
+                <TabsTrigger key={typeof m.key === "string" ? m.key : String(m.key)} value={m.key} className="px-3">
                   {m.label}
                 </TabsTrigger>
               ))}
@@ -92,11 +99,14 @@ export default function ProductRatingComparisonSection() {
                             <span>{p.name}</span>
                             <span className="text-xs text-muted-foreground">{p.type}</span>
                           </td>
-                          <td className={`py-2 px-2 font-semibold ${getColorByMetric(p[m.key], m.key)} rounded`}>
+                          <td className={`py-2 px-2 font-semibold ${
+                            m.key === "profit" ? "bg-green-50 text-green-800" : getColorByMetric(p[m.key], m.key)
+                          } rounded`}>
                             {m.key === "profit"
                               ? "₽" +
                                 (p.profit / 1_000_000).toLocaleString("ru-RU", {
                                   maximumFractionDigits: 1,
+                                  minimumFractionDigits: 0,
                                 }) +
                                 "М"
                               : m.key === "sla"
@@ -133,11 +143,38 @@ export default function ProductRatingComparisonSection() {
             ))}
           </Tabs>
         </div>
-        {/* Правая часть: сравнение */}
+        {/* Правая часть: сравнение или пример */}
         <div className="flex-1 min-w-0">
           {comparison.length < 2 ? (
-            <div className="h-full flex items-center justify-center text-muted-foreground text-sm min-h-[170px]">
-              <span>Выберите минимум 2 продукта для сравнения</span>
+            <div className="h-full flex flex-col items-center justify-center text-muted-foreground min-h-[224px] pt-4">
+              <div className="w-full flex flex-col md:flex-row gap-4 mb-4">
+                {exampleProducts.map((p) => (
+                  <Card key={p.id} className="flex-1 min-w-0 bg-muted/20 border rounded-lg">
+                    <CardContent className="py-4">
+                      <div className="flex items-center gap-2 font-semibold text-lg mb-1">
+                        <Star className="w-4 h-4 text-primary" /> {p.name}
+                      </div>
+                      <div className="text-xs text-muted-foreground mb-2">{p.type}</div>
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <span className="font-medium">Прибыль:</span>
+                        <span>{"₽" + (p.profit/1_000_000).toLocaleString("ru-RU",{maximumFractionDigits:0, minimumFractionDigits:0})}М</span>
+                        <span className="font-medium">Маржа:</span>
+                        <span>{p.margin}%</span>
+                        <span className="font-medium">Клиентов:</span>
+                        <span>{p.clients}</span>
+                        <span className="font-medium">Сделок:</span>
+                        <span>{p.deals}</span>
+                        <span className="font-medium">ROI:</span>
+                        <span>{p.roi}</span>
+                        <span className="font-medium">SLA:</span>
+                        <span>{p.sla} дн.</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              <span className="text-base font-semibold text-muted-foreground mb-2">Выберите минимум 2 продукта для сравнения</span>
+              <span className="text-xs text-muted-foreground">(Пример сравнения)</span>
             </div>
           ) : (
             <Card className="mb-4">
@@ -165,10 +202,9 @@ export default function ProductRatingComparisonSection() {
                     </div>
                   ))}
                 </div>
-                {/* Простое сравнение: кто выигрывает по выбранной метрике */}
                 <div className="flex flex-col gap-1 mt-2">
                   <span className="font-medium text-sm text-primary">🔎 Сравнительный инсайт</span>
-                  <span className="text-xs">{aiInsight || "Отметьте метрику, чтобы получить инсайт"}</span>
+                  <span className="text-xs">{aiInsight || "Отметьте 2+ продукта и метрику — получите инсайт"}</span>
                 </div>
               </CardContent>
             </Card>
