@@ -95,7 +95,7 @@ export default function ProductRegistry() {
   return (
     <>
       <Header />
-      <div className="flex-1 flex flex-col md:flex-row min-h-screen">
+      <div className="flex-1 flex flex-col min-h-screen">
         <div className="flex-1 p-4 md:p-8">
           <div className="flex flex-col md:flex-row md:items-center gap-4 justify-between mb-4">
             <h1 className="text-3xl font-bold">Реестр продуктов</h1>
@@ -146,7 +146,6 @@ export default function ProductRegistry() {
               </Button>
             </div>
           </div>
-
           <div className="overflow-x-auto bg-card rounded-lg shadow mb-6">
             <Table>
               <TableHeader>
@@ -219,20 +218,22 @@ export default function ProductRegistry() {
               </TableBody>
             </Table>
           </div>
-        </div>
-        {/* Правая панель аналитики */}
-        <div className="w-full md:w-96 shrink-0 border-l bg-background/70 p-4">
-          <ProductAnalyticsSidebar />
+          {/* Новое размещение аналитики снизу страницы */}
+          <div className="mt-6 flex flex-col gap-6 md:flex-row md:gap-6">
+            <div className="w-full md:w-1/3">
+              {/* Продуктовый Radar */}
+              <ProductAnalyticsSidebar />
+            </div>
+          </div>
         </div>
       </div>
-      {
-        showCard !== null && (
-          <ProductCardSidebar
-            product={demoProducts.find(p => p.id === showCard)!}
-            onClose={() => setShowCard(null)}
-          />
-        )
-      }
+      {/* Сайдбар по продукту, если открыт */}
+      {showCard !== null && (
+        <ProductCardSidebar
+          product={demoProducts.find(p => p.id === showCard)!}
+          onClose={() => setShowCard(null)}
+        />
+      )}
     </>
   );
 }
