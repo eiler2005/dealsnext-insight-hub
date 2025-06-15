@@ -157,12 +157,12 @@ const ProductEffectivenessCharts = () => {
         </div>
       </div>
       {/* Правая нижняя: Диаграмма по отраслям (Pie) */}
-      <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col min-h-[200px] md:min-h-[210px]">
-        <span className="font-medium mb-2 flex items-center gap-2 text-[15px]">
-          <ChartPie className="text-primary" size={19}/> Прибыль по отраслям
+      <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col min-h-[220px] md:min-h-[260px] items-center justify-center">
+        <span className="font-medium mb-1 flex items-center gap-2 text-[15px]">
+          <ChartPie className="text-primary" size={20}/> Прибыль по отраслям
         </span>
-        <div className="flex-1 flex flex-col items-center justify-evenly min-h-[150px]">
-          <ResponsiveContainer width={190} height={140}>
+        <div className="flex-1 flex flex-col items-center justify-center w-full">
+          <ResponsiveContainer width="99%" height={210}>
             <PieChart>
               <Pie
                 data={profitByIndustry}
@@ -170,35 +170,55 @@ const ProductEffectivenessCharts = () => {
                 nameKey="industry"
                 cx="50%"
                 cy="50%"
-                outerRadius={56}
-                label={({ name, value }) => `${value}`}
-                labelLine={false}
-                paddingAngle={0}
+                outerRadius={75}
+                innerRadius={35}
+                label={({ name, value, percent }) => (
+                  <text>
+                    <tspan
+                      x="0"
+                      dy="0"
+                      fontWeight="bold"
+                      fontSize="14"
+                      fill="#222"
+                    >
+                      {value}
+                    </tspan>
+                  </text>
+                )}
                 stroke="#fff"
+                paddingAngle={2}
               >
                 {profitByIndustry.map((entry, i) => (
                   <Cell key={entry.industry} fill={pieColors[i % pieColors.length]} />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip
+                formatter={(v: number, n: string) => [`${v} млн ₽`, n]}
+                contentStyle={{
+                  fontSize: 14,
+                  borderRadius: 8,
+                }}
+              />
               <Legend
                 align="center"
                 verticalAlign="bottom"
-                iconType="square"
-                height={36}
+                iconType="circle"
+                height={32}
                 wrapperStyle={{
-                  fontSize: 13,
+                  fontSize: 15,
                   marginTop: 12,
+                  fontWeight: 500,
                 }}
-                formatter={(value: string) => {
-                  switch (value) {
-                    case "Строительство": return <span style={{ color: "#2563eb" }}>Строительство</span>;
-                    case "Ритейл": return <span style={{ color: "#10b981" }}>Ритейл</span>;
-                    case "IT": return <span style={{ color: "#fbbf24" }}>IT</span>;
-                    case "Агро": return <span style={{ color: "#f87171" }}>Агро</span>;
-                    case "Другие": return <span style={{ color: "#6366f1" }}>Другие</span>;
-                    default: return value;
-                  }
+                formatter={(value: string, entry, idx) => {
+                  let color = pieColors[idx % pieColors.length];
+                  return (
+                    <span style={{ color, fontWeight: 500 }}>
+                      <span style={{
+                        display: "inline-block", width: 10, height: 10, marginRight: 8, borderRadius: "50%", background: color, verticalAlign: "middle",
+                      }} />
+                      {value}
+                    </span>
+                  );
                 }}
               />
             </PieChart>
