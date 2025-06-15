@@ -2,6 +2,7 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Briefcase } from "lucide-react";
+import ProductProfitCharts from "./ProductProfitCharts";
 
 // Демо-данные по продуктам
 const productsDemoRows = [
@@ -42,6 +43,7 @@ export default function ReportProductsSection() {
         <CardTitle className="text-base">Эффективность по продуктам</CardTitle>
       </CardHeader>
       <CardContent>
+        <ProductProfitCharts />
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
