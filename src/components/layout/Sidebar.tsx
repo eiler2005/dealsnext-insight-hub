@@ -1,9 +1,9 @@
-
 import { NavLink } from "react-router-dom";
 import { navItems } from "@/data/mockData";
 import { cn } from "@/lib/utils";
 import PreviewCard from "./PreviewCard";
 import { LayoutGrid, Info, TrendingUp, Layers } from "lucide-react";
+import OverviewEntry from "@/components/overview/OverviewEntry";
 
 const overviewCards = [
   {
@@ -34,14 +34,9 @@ const Sidebar = () => {
       <div className="h-16 flex items-center px-6 border-b border-gray-700">
         <h1 className="text-xl font-bold text-primary-foreground">DealsNext Suite</h1>
       </div>
-      {/* Раздел "Обзор" */}
-      <div className="px-4 pt-4 pb-2 select-none">
-        <div className="text-xs font-bold uppercase text-gray-400 mb-2">Обзор</div>
-        <div>
-          {overviewCards.map((c) => (
-            <PreviewCard key={c.title} {...c} />
-          ))}
-        </div>
+      {/* “Как работает система” – интерактивный раздел */}
+      <div className="p-2 pb-0">
+        <OverviewEntry />
       </div>
       <nav className="flex-1 px-4 py-4 space-y-2 overflow-y-auto sidebar-scroll">
         {navItems.map((item) => (
