@@ -117,3 +117,37 @@ export const aiInsightsData: AiInsight[] = [
     bgColor: "bg-red-50",
   },
 ];
+
+export type Deal = {
+  id: string;
+  clientName: string;
+  product: string;
+  amount: number;
+  profit: number;
+  status: "Выполнена" | "В работе" | "Отменена";
+  manager: string;
+  date: string;
+};
+
+export const dealProfitabilityData: Deal[] = [
+  { id: 'deal-001', clientName: 'ПАО "ТехноКорп"', product: 'Облачная платформа', amount: 1200000, profit: 300000, status: 'Выполнена', manager: 'Иванов И.И.', date: '2025-05-15' },
+  { id: 'deal-002', clientName: 'ООО "Ритейл-Сервис"', product: 'CRM система', amount: 850000, profit: 150000, status: 'Выполнена', manager: 'Петров П.П.', date: '2025-05-20' },
+  { id: 'deal-003', clientName: 'АО "Финанс-Групп"', product: 'Аналитическая платформа', amount: 2500000, profit: 750000, status: 'В работе', manager: 'Сидорова А.В.', date: '2025-06-01' },
+  { id: 'deal-004', clientName: 'ИП Смирнов В.А.', product: 'Консалтинг', amount: 300000, profit: 120000, status: 'В работе', manager: 'Иванов И.И.', date: '2025-06-05' },
+  { id: 'deal-005', clientName: 'ООО "Логистика Плюс"', product: 'ERP система', amount: 3200000, profit: 900000, status: 'Отменена', manager: 'Петров П.П.', date: '2025-06-10' },
+  { id: 'deal-006', clientName: 'ПАО "ТехноКорп"', product: 'Техподдержка', amount: 500000, profit: 250000, status: 'Выполнена', manager: 'Сидорова А.В.', date: '2025-06-12' },
+];
+
+export type FunnelStage = {
+  name: string;
+  value: number;
+  fill: string;
+};
+
+export const salesFunnelData: FunnelStage[] = [
+  { name: 'Новые лиды', value: 100, fill: '#8884d8' },
+  { name: 'Квалификация', value: 80, fill: '#83a6ed' },
+  { name: 'Предложение', value: 50, fill: '#8dd1e1' },
+  { name: 'Переговоры', value: 30, fill: '#82ca9d' },
+  { name: 'Закрытие сделки', value: 20, fill: '#a4de6c' },
+];
