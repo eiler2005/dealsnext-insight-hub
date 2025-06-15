@@ -16,6 +16,8 @@
 - ⚙️ Разработка с помощью AI Tool — **Lovable**
 - 🚀 Ускоренный цикл создания MVP с использованием ИИ
 
+📋 **[Обзор интерфейса и скриншоты](UI_Overview.md)**
+
 ---
 
 ## 🇺🇸 Description
@@ -34,6 +36,7 @@ The goal of the system is to give users quick access to the most relevant and up
 - ⚙️ Developed using the AI Tool — **Lovable**
 - 🚀 Rapid MVP creation enabled by AI
 
+📋 **[Interface Overview and Screenshots](UI_Overview.md)**
 
 ## Project info
 
