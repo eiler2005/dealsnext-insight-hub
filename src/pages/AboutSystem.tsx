@@ -1,52 +1,74 @@
 
-import { Layers, FileText, Book, TrendingUp, Eye, Download } from "lucide-react";
+import { Layers, FileText, Book, TrendingUp, Eye, ArrowRight, Users, BarChart3, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import OverviewGlossary from "@/components/overview/OverviewGlossary";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 const MODS = [
   {
     key: "products",
     label: "Продукт",
-    icon: <Layers size={36} className="text-blue-600" />,
-    color: "bg-blue-50",
+    icon: <Layers size={32} className="text-blue-600" />,
     desc: "Каталог, себестоимость, прайс, типы клиентов",
     to: "/product-registry",
+    color: "bg-blue-50",
+    arrow: true,
+    explain: "Каталог всех продуктов/услуг, данные для дальнейшей аналитики."
   },
   {
     key: "deals",
     label: "Сделка",
-    icon: <FileText size={36} className="text-orange-500" />,
-    color: "bg-orange-50",
+    icon: <FileText size={32} className="text-orange-500" />,
     desc: "Сделка как актив: условия, структура, жизненный цикл",
     to: "/deal-profitability",
-  },
-  {
-    key: "conditions",
-    label: "Инд. условия",
-    icon: <Book size={36} className="text-yellow-600" />,
-    color: "bg-yellow-50",
-    desc: "Скидки, комиссии, рассрочки — влияние на P&L/выгоду",
-    to: "/individual-conditions",
+    color: "bg-orange-50",
+    arrow: true,
+    explain: "Сделка = набор продуктов + индивидуальные условия клиента."
   },
   {
     key: "analytics",
     label: "Аналитика",
-    icon: <TrendingUp size={36} className="text-green-600" />,
-    color: "bg-green-50",
+    icon: <TrendingUp size={32} className="text-green-600" />,
     desc: "Контроль SLA, прибыльности, принятие решений",
     to: "/dashboard",
+    color: "bg-green-50",
+    arrow: true,
+    explain: "Аналитика по исполнению сделки, прибыли, SLA, AI-подсказки."
   },
   {
     key: "ai",
     label: "Рекомендации",
-    icon: <Eye size={36} className="text-purple-600" />,
-    color: "bg-purple-50",
+    icon: <Eye size={32} className="text-purple-600" />,
     desc: "AI Growth: точки роста, сигналы, новые возможности",
     to: "/ai-recommendations",
+    color: "bg-purple-50",
+    arrow: false,
+    explain: "AI-инсайты и подсказки для роста и удержания."
   },
 ];
 
+// Ссылки "Что посмотреть первым"
+const QUICK_LINKS = [
+  {
+    icon: <FileText className="text-orange-500 mr-1" size={18} />,
+    label: "Сделки в работе",
+    to: "/deal-profitability",
+  },
+  {
+    icon: <AlertCircle className="text-yellow-700 mr-1" size={18} />,
+    label: "Просроченные SLA",
+    to: "/dashboard",
+  },
+  {
+    icon: <BarChart3 className="text-green-600 mr-1" size={18} />,
+    label: "ТОП-5 клиентов по прибыли",
+    to: "/client-insights",
+  },
+];
+
+// FAQ
 const FAQS = [
   {
     q: "Что такое DealsNext Suite?",
@@ -62,33 +84,135 @@ const FAQS = [
   },
 ];
 
+// Сценарий "Как живёт сделка"
+const LIFE_SCENARIO = [
+  {
+    title: "1. Идея/Запрос клиента",
+    content: "Клиент проявляет интерес или приходит запрос от менеджера. Оцениваются возможные продукты.",
+  },
+  {
+    title: "2. Формирование сделки",
+    content: "В сделку добавляют продукты, определяют условия, рассчитывают маржинальность.",
+  },
+  {
+    title: "3. Исполнение и SLA",
+    content: "Контроль выполнения договорённостей, автоматический мониторинг SLA, аналитика по исполнению.",
+  },
+  {
+    title: "4. Моделирование роста",
+    content: "AI анализирует успешность, даёт рекомендации: upsell, новые возможности или оптимизацию условий.",
+  },
+];
+
+function FlowChain() {
+  const navigate = useNavigate();
+  return (
+    <div className="flex flex-wrap sm:flex-nowrap items-center my-4 justify-center gap-0 relative z-10">
+      {MODS.map((mod, idx) => (
+        <React.Fragment key={mod.key}>
+          <div
+            className={`relative flex flex-col items-center px-4 py-3 min-w-[120px] max-w-[150px] rounded-xl border border-slate-200 shadow-sm transition-all cursor-pointer hover:shadow-md group ${mod.color}`}
+            tabIndex={0}
+            onClick={() => navigate(mod.to)}
+            title={mod.explain}
+          >
+            {mod.icon}
+            <span className="font-semibold text-sm mt-1 text-slate-800">{mod.label}</span>
+            <span className="text-[11px] text-slate-700 text-center">{mod.desc}</span>
+            <span className="hidden group-hover:block absolute left-1/2 -translate-x-1/2 top-full mt-2 bg-white p-2 border rounded shadow-md w-max z-40 text-xs text-slate-700">
+              {mod.explain}
+            </span>
+          </div>
+          {mod.arrow && (
+            <span className="mx-2">
+              <ArrowRight size={28} className="text-slate-400" />
+            </span>
+          )}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
+function RoleWalkthroughStub() {
+  return (
+    <div className="bg-slate-50 border p-3 rounded-md mb-4 flex flex-col gap-2">
+      <div className="font-medium text-sm mb-1"><Users className="inline mr-1" size={18}/>Выберите свою роль:</div>
+      <div className="flex gap-3 flex-wrap">
+        <Button size="sm" variant="outline" className="text-xs">Менеджер</Button>
+        <Button size="sm" variant="outline" className="text-xs">Аналитик</Button>
+        <Button size="sm" variant="outline" className="text-xs">Руководитель</Button>
+        <span className="ml-2 text-xs text-muted-foreground">(рольвая настройка - скоро)</span>
+      </div>
+    </div>
+  );
+}
+
 export default function AboutSystem() {
   const navigate = useNavigate();
-
   return (
     <div className="w-full max-w-3xl mx-auto py-8 px-4">
-      {/* Header */}
-      <div className="mb-4">
-        <h1 className="text-2xl md:text-3xl font-bold text-blue-700 mb-2">Формула продукта DealsNext</h1>
-        <p className="text-slate-700 text-base md:text-lg mb-4">
-          Каждая сделка = управляемый актив. Вот как это работает.
-        </p>
+      {/* Закрепленный заголовок */}
+      <div className="mb-3">
+        <h1 className="text-2xl md:text-3xl font-bold text-blue-700 mb-2">📘 Обзор DealsNext Suite — как работает система</h1>
+        <div className="text-base mb-2 text-slate-700">Каждая сделка = управляемый актив. Формула и шаги работы платформы:</div>
       </div>
-      {/* Modules cards */}
-      <div className="flex flex-wrap gap-3 mb-4 justify-between">
-        {MODS.map((mod) => (
-          <button
-            key={mod.key}
-            className={`flex-1 min-w-[135px] max-w-[180px] flex flex-col items-center px-3 pt-4 pb-3 rounded-xl border border-slate-200 shadow-sm transition hover:shadow-lg duration-150 ${mod.color} clickable-card`}
-            style={{ flexBasis: "18%" }}
-            onClick={() => navigate(mod.to)}
-          >
-            <span>{mod.icon}</span>
-            <span className="font-semibold text-base mt-2 mb-1 text-slate-900">{mod.label}</span>
-            <span className="text-xs text-slate-700 text-center mb-0">{mod.desc}</span>
-          </button>
+
+      {/* Формула продукта: расширенное описание */}
+      <div className="mb-2 rounded-lg p-4 border border-blue-100 bg-blue-50/50">
+        <div className="font-medium text-blue-800 text-lg mb-2">Формула продукта DealsNext Suite</div>
+        <ul className="list-disc pl-5 text-slate-800 text-sm space-y-1">
+          <li><b>Продукт = единица ценности:</b> каталог, себестоимость, тип клиента, ROI, детальная аналитика</li>
+          <li><b>Сделка:</b> набор продуктов, индивидуальные условия, жизненный цикл, маржинальность</li>
+          <li><b>Аналитика:</b> контроль SLA, прибыльность, AI-комментарии, графики и тренды</li>
+          <li><b>Рекомендации (AI Growth):</b> инсайты для роста, upsell/cross-sell, предупреждение рисков</li>
+        </ul>
+      </div>
+
+      {/* Интерактивная flow-цепочка */}
+      <FlowChain />
+
+      {/* Пример цепочки */}
+      <div className="mb-4 bg-slate-50 border rounded p-3 text-sm text-slate-700">
+        <span className="font-semibold text-slate-800">Пример цепочки:</span><br />
+        <span className="inline-block mt-1 text-xs md:text-sm">
+          🟢 <b>Продукт:</b> API-доступ →
+          🟡 <b>Сделка:</b> включает API + скидка -10% →
+          🔵 <b>Аналитика:</b> SLA = 5 дней (норма), маржа = 7% →
+          🟣 <b>Рекомендация:</b> AI советует перевести на “Pro”, прибыльность вырастет на 12%
+        </span>
+      </div>
+
+      {/* Блок сценария */}
+      <Accordion type="single" collapsible className="mb-4">
+        {LIFE_SCENARIO.map((step, i) => (
+          <AccordionItem key={step.title} value={`step${i}`}>
+            <AccordionTrigger className="text-[15px] text-slate-800">{step.title}</AccordionTrigger>
+            <AccordionContent className="text-sm text-muted-foreground">{step.content}</AccordionContent>
+          </AccordionItem>
         ))}
+      </Accordion>
+
+      {/* Быстрые ссылки */}
+      <div className="mb-4 bg-white/60 border rounded-xl p-3 flex flex-col gap-2">
+        <div className="font-medium text-slate-800 text-sm mb-1">Что посмотреть первым:</div>
+        <div className="flex flex-wrap gap-3">
+          {QUICK_LINKS.map(link => (
+            <Button
+              key={link.label}
+              size="sm"
+              variant="outline"
+              className="text-xs px-2 flex items-center"
+              onClick={() => navigate(link.to)}
+            >
+              {link.icon} {link.label}
+            </Button>
+          ))}
+        </div>
       </div>
+
+      {/* Ролевой walkthrough-stub */}
+      <RoleWalkthroughStub />
 
       {/* Actions */}
       <div className="flex flex-wrap gap-3 items-center mb-5">
@@ -98,7 +222,7 @@ export default function AboutSystem() {
           className="text-xs px-3"
           onClick={() => window.open("https://dealsnext.su/presentation.pdf", "_blank")}
         >
-          <Download className="w-4 h-4 mr-1" /> Скачать презентацию
+          Скачать презентацию
         </Button>
         <Button
           size="sm"
@@ -117,24 +241,7 @@ export default function AboutSystem() {
           Интерактивный тур платформы
         </Button>
       </div>
-
-      {/* Onboarding Instructions */}
-      <div className="mb-4 bg-white rounded-xl p-4 border border-slate-100">
-        <div className="text-base font-medium mb-1">🧠 Как пользоваться платформой?</div>
-        <ul className="pl-5 list-disc text-sm text-slate-700 mb-0">
-          <li>Откройте любой модуль, кликнув по карточке выше.</li>
-          <li>Изучайте аналитику сделки для поиска точек роста.</li>
-          <li>Воспользуйтесь подсказками на экране для понимания интерфейса.</li>
-          <li>
-            Пройдите{" "}
-            <a href="https://dealsnext.su/walkthrough" target="_blank" className="underline text-blue-700">
-              интерактивный тур платформы
-            </a>.
-          </li>
-        </ul>
-      </div>
-
-      {/* FAQ Section */}
+      {/* FAQ */}
       <div className="mb-4 bg-white rounded-xl p-4 border border-slate-100">
         <div className="text-base font-medium mb-2">Часто задаваемые вопросы</div>
         <ul className="space-y-2 text-sm text-slate-700">
@@ -146,8 +253,7 @@ export default function AboutSystem() {
           ))}
         </ul>
       </div>
-
-      {/* Glossary */}
+      {/* Глоссарий */}
       <OverviewGlossary />
     </div>
   );
