@@ -85,6 +85,15 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ---
 
+### Developer/Analytics View
+
+![Developer Code Screenshot](/screenshots/photo-1487058792275-0ad4aaf24ca7.jpg)
+
+- **Technical Analytics:** For advanced users or developers.
+- **Code Integration:** Example of code view for custom data analysis.
+
+---
+
 ## 🇷🇺 Русский
 
 Добро пожаловать в интерфейс DealsNextV0!  
@@ -164,6 +173,15 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 - **Сегментация:** Отбор ведущих и менее успешных клиентов.
 - **Быстрый доступ:** История и тренды по каждому клиенту.
+
+---
+
+### Тех.раздел/Код
+
+![Код](/screenshots/photo-1487058792275-0ad4aaf24ca7.jpg)
+
+- **Техноподдержка/разработчикам:** Пример вида с технической детализацией.
+- **Возможность интеграции кода:** Для кастомного анализа.
 
 ---
 
