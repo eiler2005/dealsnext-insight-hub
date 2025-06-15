@@ -8,7 +8,7 @@ interface Metric {
   icon: React.ReactNode;
   bg: string;
   delta?: string;
-  highlight?: "up" | "down";
+  // highlight property removed
 }
 
 const metricsDemoByRole = {
@@ -38,7 +38,14 @@ export default function ReportMetricsCards({ role }: { role: "manager" | "direct
             <div className="text-2xl font-bold">{m.value}</div>
             {m.delta && (
               <CardDescription className="text-xs">
-                Изменение: <span className={m.highlight === "down" ? "text-red-600" : "text-green-600"}>{m.delta}</span>
+                Изменение:{" "}
+                <span className={
+                  m.delta.trim().startsWith('-') || m.delta.trim().startsWith('−')
+                    ? "text-red-600"
+                    : "text-green-600"
+                }>
+                  {m.delta}
+                </span>
               </CardDescription>
             )}
           </CardContent>
@@ -47,3 +54,4 @@ export default function ReportMetricsCards({ role }: { role: "manager" | "direct
     </div>
   );
 }
+
