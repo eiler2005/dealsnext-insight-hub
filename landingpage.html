@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DealsNext Suite: Узнайте прибыль по сделке до её подписания — как это уже сделал ВТБ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F8F8; /* Light Gray */
+            color: #333333; /* Dark Gray */
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .text-primary-blue { color: #1976D2; } /* Primary Blue */
+        .bg-primary-blue { background-color: #1976D2; }
+        .text-secondary-blue { color: #2196F3; } /* Medium Blue */
+        .bg-secondary-blue { background-color: #2196F3; }
+        .text-accent-orange { color: #F57C00; } /* Deep Orange */
+        .bg-accent-orange { background-color: #F57C00; }
+        .bg-light-blue { background-color: #E3F2FD; } /* Light Blue */
+        .bg-light-orange { background-color: #FFF3E0; } /* Lighter Orange */
+
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 1rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* More pronounced shadow */
+            padding: 2rem; /* Increased padding */
+            margin-bottom: 2rem; /* Increased margin */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px); /* Slight lift on hover */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .section-heading {
+            font-size: 3rem; /* Larger heading */
+            font-weight: 800; /* Bolder */
+            color: #1976D2;
+            text-align: center;
+            margin-bottom: 4rem; /* Increased margin */
+            line-height: 1.2;
+        }
+        @media (max-width: 768px) {
+            .section-heading {
+                font-size: 2.25rem;
+            }
+        }
+
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 40vh;
+            width: 100%;
+            max-height: 400px;
+            margin-bottom: 2rem; /* Added margin for charts */
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 45vh;
+            }
+        }
+        .flow-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .flow-step {
+            background-color: #E0F2F7;
+            border-radius: 9999px;
+            padding: 0.75rem 1.5rem; /* Increased padding */
+            display: inline-block;
+            white-space: nowrap;
+            font-weight: 700; /* Bolder */
+            color: #0D47A1;
+            margin: 0.75rem 0.75rem; /* Increased margin */
+            position: relative;
+            z-index: 10;
+        }
+        .arrow {
+            position: relative;
+            display: inline-block;
+            width: 2.5rem; /* Slightly longer */
+            height: 3px; /* Thicker */
+            background-color: #64B5F6;
+            margin: 0 0.5rem;
+        }
+        .arrow::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 8px 0 8px 12px; /* Larger arrow head */
+            border-color: transparent transparent transparent #64B5F6;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 2.5rem; /* Increased margin */
+            align-items: flex-start;
+        }
+        .timeline-icon {
+            flex-shrink: 0;
+            width: 3.5rem; /* Larger icon */
+            height: 3.5rem; /* Larger icon */
+            border-radius: 50%;
+            background-color: #2196F3;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem; /* Larger font */
+            font-weight: 800; /* Bolder */
+            margin-right: 2rem; /* Increased margin */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25); /* Stronger shadow */
+        }
+        .timeline-content {
+            flex-grow: 1;
+            background-color: white;
+            border-radius: 1rem; /* More rounded */
+            padding: 1.5rem; /* Increased padding */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Stronger shadow */
+        }
+        .btn-primary {
+            @apply px-8 py-3 bg-accent-orange text-white text-lg font-semibold rounded-full shadow-lg hover:bg-orange-600 transition-all duration-300 transform hover:scale-105;
+        }
+        .list-style-check {
+            list-style-type: none; /* Remove default bullet */
+            padding-left: 0;
+        }
+        .list-style-check li {
+            position: relative;
+            padding-left: 1.75rem; /* Space for custom checkmark */
+            margin-bottom: 0.75rem; /* Space between items */
+        }
+        .list-style-check li:last-child {
+            margin-bottom: 0;
+        }
+        .list-style-check li::before {
+            content: '✅'; /* Checkmark emoji */
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.25rem;
+            line-height: 1.5rem;
+        }
+        /* Sticky CTA */
+        .sticky-cta {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        /* Micro-animations */
+        .animate-pop-in {
+            animation: popIn 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes popIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-in-left {
+            animation: slideInLeft 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        @keyframes slideInLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-in-right {
+            animation: slideInRight 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        @keyframes slideInRight {
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<header class="bg-gradient-to-r from-blue-700 to-blue-900 text-white py-16 px-4 text-center shadow-2xl">
+    <div class="container mx-auto">
+        <!-- Hook -->
+        <p class="text-xl md:text-2xl font-light opacity-90 mb-4 animate-pop-in" style="animation-delay: 0.2s;">
+            Устали терять деньги из-за сложных сделок?
+        </p>
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight tracking-tight animate-pop-in" style="animation-delay: 0.4s;">
+            Узнайте прибыль по сделке до её подписания — <span class="text-accent-orange">как это уже сделал ВТБ.</span>
+        </h1>
+        <!-- Big Bold Claim -->
+        <p class="text-2xl md:text-3xl font-light opacity-90 mb-10 animate-pop-in" style="animation-delay: 0.6s;">
+            Платформа DealsNext Suite автоматизирует сделки с индивидуальными условиями и <span class="font-bold text-yellow-300">увеличивает прибыльность на 15%.</span>
+        </p>
+        <a href="#audit-cta" class="btn-primary animate-pop-in" style="animation-delay: 0.8s;">
+            Получите бесплатный аудит за 7 дней
+        </a>
+    </div>
+</header>
+
+<main class="container mx-auto py-16 px-4">
+
+    <!-- Social Proof + Authority -->
+    <section id="social-proof" class="mb-20 text-center animate-pop-in" style="animation-delay: 1s;">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-primary-blue mb-8">
+            Нам доверяют лидеры рынка
+        </h2>
+        <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16">
+            <img src="https://placehold.co/150x60/d4edda/28a745?text=ВТБ+Лого" alt="Логотип Банка ВТБ" class="h-16 opacity-80 hover:opacity-100 transition-opacity duration-300">
+            <img src="https://placehold.co/180x60/E3F2FD/1976D2?text=FINNEXT+2025" alt="Логотип FINNEXT 2025" class="h-16 opacity-80 hover:opacity-100 transition-opacity duration-300">
+            <p class="text-xl font-semibold text-gray-700">
+                Проект "СТРЕЛА" внедрён в Банке ВТБ. <br>
+                <span class="text-accent-orange">Победитель FINNEXT 2025</span> в номинации "Инновационное решение года".
+            </p>
+        </div>
+    </section>
+
+    <!-- Pain Stack -->
+    <section id="pain-stack" class="mb-20">
+        <h2 class="section-heading animate-slide-in-left">
+            Сколько денег вы теряете на сделках?
+        </h2>
+        <p class="text-center text-xl text-gray-700 max-w-4xl mx-auto mb-12 leading-relaxed animate-pop-in" style="animation-delay: 0.2s;">
+            Вы крупная B2B-компания (банк, телеком, промышленность, IT). Ваши сделки — это не простая продажа, а сложная конструкция из продуктов, уникальных условий и десятков согласований. И вот что вас тормозит:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="card animate-slide-in-left" style="animation-delay: 0.4s;">
+                <h3 class="text-2xl font-bold text-red-600 mb-5 text-center">Проблема: Рутина и непрозрачность</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-4 text-lg">
+                    <li><span class="font-bold">Excel-свалка:</span> Условия сделок разбросаны по таблицам, мессенджерам и головам менеджеров.</li>
+                    <li><span class="font-bold">"Ручник" везде:</span> Каждый шаг — ручное согласование, переделки, задержки.</li>
+                    <li><span class="font-bold">Невидимая маржа:</span> Вы не понимаете реальную прибыльность сделки до её закрытия.</li>
+                    <li><span class="font-bold">Медленные сделки:</span> Сделка идёт 10 дней, хотя могла бы за 2.</li>
+                    <li><span class="font-bold">CRM не даёт ответов:</span> Ваша CRM хорошо ведет контакты, но молчит о прибыльности и SLA.</li>
+                </ul>
+            </div>
+            <div class="card animate-slide-in-right" style="animation-delay: 0.6s;">
+                <h3 class="text-2xl font-bold text-red-600 mb-5 text-center">Итог: Потерянные деньги и время</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-4 text-lg">
+                    <li>Потеря до <span class="font-bold text-red-600">15-20% прибыли</span> из-за неучтенных условий и ошибок.</li>
+                    <li><span class="font-bold text-red-600">Длинный цикл сделок</span> убивает ваши возможности для роста.</li>
+                    <li>Невозможность масштабирования из-за <span class="font-bold text-red-600">отсутствия системности.</span></li>
+                    <li>Риски несоблюдения SLA и <span class="font-bold text-red-600">потери лояльности клиентов.</span></li>
+                    <li>Ваши лучшие люди тратят время на <span class="font-bold text-red-600">операционную рутину</span> вместо стратегических задач.</li>
+                </ul>
+            </div>
+        </div>
+        <p class="text-center text-2xl font-bold text-accent-orange mt-12 leading-relaxed animate-pop-in" style="animation-delay: 0.8s;">
+            Хватит отдавать прибыль конкурентам!
+        </p>
+    </section>
+
+    <!-- Value Stack -->
+    <section id="value-stack" class="mb-20">
+        <h2 class="section-heading animate-slide-in-left">
+            DealsNext Suite: Ваш CFO + Head of Sales + BI-аналитик, встроенный в сделку
+        </h2>
+        <p class="text-center text-xl text-gray-700 max-w-4xl mx-auto mb-12 leading-relaxed animate-pop-in" style="animation-delay: 0.2s;">
+            Мы создали платформу, которая устраняет хаос и превращает каждую сделку в прозрачный, управляемый и максимально прибыльный процесс. Это не просто ПО, это ваш стратегический партнер.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="card bg-light-blue animate-slide-in-left" style="animation-delay: 0.4s;">
+                <h3 class="text-2xl font-bold text-primary-blue mb-4">💰 Видимость прибыли ДО сделки</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">Мгновенный P&L по каждому продукту и клиенту. Вы всегда знаете, сколько заработаете, а не гадаете.</p>
+            </div>
+            <div class="card bg-light-blue animate-pop-in" style="animation-delay: 0.6s;">
+                <h3 class="text-2xl font-bold text-primary-blue mb-4">⚙️ Автоматизация расчётов и условий</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">Система сама посчитает все скидки, ставки и комиссии. Прощайте, ошибки в Excel!</p>
+            </div>
+            <div class="card bg-light-blue animate-slide-in-right" style="animation-delay: 0.8s;">
+                <h3 class="text-2xl font-bold text-primary-blue mb-4">⏱️ Контроль SLA и узких мест</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">Отслеживайте каждый этап сделки, устраняйте "бутылочные горлышки" и сокращайте цикл.</p>
+            </div>
+            <div class="card bg-light-blue animate-slide-in-left" style="animation-delay: 1.0s;">
+                <h3 class="text-2xl font-bold text-primary-blue mb-4">📈 Аналитика и прогнозирование роста</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">Инсайты о том, где теряете деньги, и рекомендации для кросс- и апсейлов. Растите за счет данных!</p>
+            </div>
+            <div class="card bg-light-blue animate-pop-in" style="animation-delay: 1.2s;">
+                <h3 class="text-2xl font-bold text-primary-blue mb-4">🤝 Интеграция с вашей CRM и ERP</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">DealsNext дополняет вашу инфраструктуру, а не ломает её. Работает как единый организм.</p>
+            </div>
+            <div class="card bg-light-blue animate-slide-in-right" style="animation-delay: 1.4s;">
+                <h3 class="text-2xl font-bold text-primary-blue mb-4">✅ Проверено ВТБ и признано FINNEXT</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">Решение уже работает в проде у одного из крупнейших банков России. Это не обещания, это факт.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before/After Comparison (Problems Solved Refined) -->
+    <section id="comparison" class="mb-20">
+        <h2 class="section-heading animate-slide-in-left">
+            До и После DealsNext: Разница, которую вы почувствуете
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="card bg-light-orange animate-slide-in-left">
+                <h3 class="text-2xl font-bold text-accent-orange mb-5 text-center">Ваша реальность СЕЙЧАС (до DealsNext)</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-4 text-lg">
+                    <li><span class="font-bold">Разрозненные данные:</span> Информация о сделке в десятках мест.</li>
+                    <li><span class="font-bold">"Слепая" прибыль:</span> Юнит-экономика — загадка до закрытия сделки.</li>
+                    <li><span class="font-bold">Замедление:</span> Ручные согласования, переброска документов, простои.</li>
+                    <li><span class="font-bold">Выгорание:</span> Менеджеры тратят время на рутину, а не на продажи.</li>
+                </ul>
+            </div>
+            <div class="card bg-green-50 animate-slide-in-right">
+                <h3 class="text-2xl font-bold text-green-600 mb-5 text-center">Ваша новая реальность с DealsNext</h3>
+                <ul class="list-style-check text-green-600 font-semibold space-y-4 text-lg">
+                    <li><span class="text-gray-700">Единый цифровой контур сделок.</span></li>
+                    <li><span class="text-gray-700">Прозрачный P&L по каждой сделке и клиенту.</span></li>
+                    <li><span class="text-gray-700">Автоматизация процессов и расчетов.</span></li>
+                    <li><span class="text-gray-700">Сокращение цикла сделки на <span class="font-bold">30%</span>.</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objection Handling (FAQ/А если...) -->
+    <section id="faq" class="mb-20">
+        <h2 class="section-heading animate-slide-in-left">
+            У вас есть вопросы? У нас есть ответы.
+        </h2>
+        <p class="text-center text-xl text-gray-700 max-w-4xl mx-auto mb-12 leading-relaxed animate-pop-in" style="animation-delay: 0.2s;">
+            Мы знаем, что у вас могут быть опасения. Давайте разберем самые частые возражения, которые мы слышим от лидеров рынка, похожих на вас.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="card animate-slide-in-left" style="animation-delay: 0.4s;">
+                <h3 class="text-2xl font-bold text-primary-blue mb-4">"У нас уже есть CRM"</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    CRM — это про контакты и воронку. DealsNext — про <span class="font-bold">прибыль, условия и рост на каждой сделке.</span> Мы не заменяем вашу CRM, а подключаемся там, где она заканчивается. Думайте о нас как о надстройке, которая превращает контакты в деньги.
+                </p>
+            </div>
+            <div class="card animate-slide-in-right" style="animation-delay: 0.6s;">
+                <h3 class="text-2xl font-bold text-primary-blue mb-4">"Это сложно внедрять"</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Мы говорим про <span class="font-bold">быстрый запуск и поэтапное масштабирование.</span> Наши проекты в ВТБ показали, что начать можно за считанные месяцы, а не годы. Вы видите первые результаты уже на старте.
+                </p>
+            </div>
+            <div class="card animate-slide-in-left" style="animation-delay: 0.8s;">
+                <h3 class="text-2xl font-bold text-primary-blue mb-4">"У нас уникальные процессы"</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Именно поэтому у нас <span class="font-bold">модульная архитектура и гибкая настройка под вас.</span> Мы не заставляем вас подстраиваться под систему, а настраиваем систему под ваши уникальные бизнес-процессы.
+                </p>
+            </div>
+            <div class="card animate-slide-in-right" style="animation-delay: 1.0s;">
+                <h3 class="text-2xl font-bold text-primary-blue mb-4">"Сделки и так долго согласуем"</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    С DealsNext вы <span class="font-bold">сократите цикл согласований в 3+ раза</span> — это подтверждено успешным внедрением в ВТБ. Мы автоматизируем согласования, а не добавляем их.
+                </p>
+            </div>
+            <div class="card md:col-span-2 animate-pop-in" style="animation-delay: 1.2s;">
+                <h3 class="text-2xl font-bold text-primary-blue mb-4">"А как же бюджет?"</h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    DealsNext Suite — это <span class="font-bold text-accent-orange">инвестиция, которая приносит ROI.</span> Мы говорим о +15% к доходности крупных сделок. Вы не тратите, вы <span class="font-bold">зарабатываете больше.</span> Это не расходы, это прибыльный актив.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objection Handler Assistant ✨ -->
+    <section id="ai-objection-handler" class="mb-20">
+        <h2 class="section-heading animate-slide-in-left">
+            ✨ AI-ассистент: Снимите любое возражение!
+        </h2>
+        <p class="text-center text-xl text-gray-700 max-w-4xl mx-auto mb-12 leading-relaxed animate-pop-in" style="animation-delay: 0.2s;">
+            Есть сомнения, которых нет в списке? Задайте свой вопрос нашему AI-ассистенту, и он даст вам убедительный ответ, как настоящий эксперт по продажам DealsNext Suite.
+        </p>
+        <div class="card bg-light-blue p-8 md:p-10 max-w-2xl mx-auto animate-pop-in" style="animation-delay: 0.4s;">
+            <label for="objectionInput" class="block text-lg font-semibold text-primary-blue mb-3">Ваше возражение или вопрос:</label>
+            <textarea id="objectionInput" rows="4" class="w-full p-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none mb-4 text-gray-800" placeholder="Например: 'Насколько быстро мы увидим отдачу?' или 'Как DealsNext улучшит нашу работу с текущими клиентами?'"></textarea>
+            <button id="generateResponseBtn" class="btn-primary w-full flex items-center justify-center">
+                Получить ответ от AI ✨ <span id="loader" class="loader hidden"></span>
+            </button>
+            <div id="aiResponse" class="mt-8 p-6 bg-white rounded-lg shadow-inner border border-blue-200 hidden">
+                <h3 class="text-xl font-bold text-primary-blue mb-3">Ответ нашего AI-ассистента:</h3>
+                <p class="text-lg text-gray-700 leading-relaxed" id="aiResponseText"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Low-friction CTA -->
+    <section id="audit-cta" class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20 text-center rounded-xl shadow-2xl animate-pop-in">
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-8 leading-tight">
+            Сколько вы сможете заработать? Узнайте точно!
+        </h2>
+        <p class="text-xl md:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">
+            Получите <span class="font-bold text-yellow-300">бесплатный аудит</span> текущих процессов ваших сделок.
+            За <span class="font-bold text-yellow-300">7 дней</span> мы покажем вам конкретную картину бизнес-эффекта и то,
+            <span class="font-bold text-yellow-300">где вы теряете деньги.</span>
+        </p>
+        <a href="#contacts" class="btn-primary">
+            Получить бесплатный аудит сейчас
+        </a>
+    </section>
+
+    <!-- Contacts and Trust -->
+    <section id="contacts" class="my-20 text-center">
+        <h2 class="section-heading animate-slide-in-left">
+            Свяжитесь с нами: Ваш рост начинается здесь
+        </h2>
+        <p class="text-xl text-gray-700 mb-10 leading-relaxed animate-pop-in" style="animation-delay: 0.2s;">
+            Мы готовы ответить на все ваши вопросы и показать, как DealsNext Suite может изменить ваш бизнес.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            <div class="card bg-light-blue animate-slide-in-left" style="animation-delay: 0.4s;">
+                <img src="https://placehold.co/100x100/A7D9FF/1976D2?text=Фото" alt="Фото Дениса Ермилова" class="rounded-full mx-auto mb-4 shadow-md">
+                <p class="text-2xl font-bold text-primary-blue mb-2">Денис Ермилов</p>
+                <p class="text-xl text-gray-700 mb-4">Заместитель директора по работе с корпоративными клиентами</p>
+                <p class="text-lg text-gray-700 mb-2">📧 <a href="mailto:denis.ermilov@cinimex.ru" class="text-secondary-blue hover:underline font-medium">denis.ermilov@cinimex.ru</a></p>
+                <p class="text-lg text-gray-700">📞 <a href="tel:+79261363343" class="text-secondary-blue hover:underline font-medium">+7(926)1363343</a> (WhatsApp, Telegram)</p>
+            </div>
+            <div class="card bg-light-blue animate-slide-in-right" style="animation-delay: 0.6s;">
+                <img src="https://placehold.co/100x100/A7D9FF/1976D2?text=Фото" alt="Фото Алексея Шмакова" class="rounded-full mx-auto mb-4 shadow-md">
+                <p class="text-2xl font-bold text-primary-blue mb-2">Алексей Шмаков</p>
+                <p class="text-xl text-gray-700 mb-4">Руководитель продукта DealsNext</p>
+                <p class="text-lg text-gray-700 mb-2">📧 <a href="mailto:ashmakov@cinimex.ru" class="text-secondary-blue hover:underline font-medium">ashmakov@cinimex.ru</a></p>
+                <p class="text-lg text-gray-700">📞 <a href="tel:+79104246253" class="text-secondary-blue hover:underline font-medium">+7(910)4246253</a> (WhatsApp, Telegram)</p>
+            </div>
+        </div>
+        <p class="text-xl text-gray-700 mt-10 animate-pop-in" style="animation-delay: 0.8s;">
+            Официальный сайт: <a href="https://www.cinimex.ru" target="_blank" class="text-primary-blue hover:underline font-semibold">www.cinimex.ru</a>
+        </p>
+        <img src="https://placehold.co/180x60/d4edda/28a745?text=Cinimex+Logo" alt="Логотип Cinimex" class="mx-auto mt-8 h-16 opacity-80 hover:opacity-100 transition-opacity duration-300 animate-pop-in" style="animation-delay: 1.0s;">
+    </section>
+
+</main>
+
+<footer class="bg-gradient-to-r from-blue-700 to-blue-900 text-white py-8 px-4 text-center">
+    <div class="container mx-auto">
+        <p class="text-lg">&copy; 2025 DealsNext Suite. Все права защищены. Разработано Cinimex.</p>
+    </div>
+</footer>
+
+<!-- Sticky CTA Button -->
+<div class="sticky-cta">
+    <a href="#audit-cta" class="btn-primary animate-pop-in" style="animation-delay: 1.5s;">
+        Получить бесплатный аудит
+    </a>
+</div>
+
+<script>
+    // Chart.js Label Wrapping Function
+    const wrapText = (text, maxLen = 16) => {
+        if (typeof text !== 'string' || text.length <= maxLen) {
+            return text;
+        }
+        const words = text.split(' ');
+        const lines = [];
+        let currentLine = '';
+        for (const word of words) {
+            if ((currentLine + ' ' + word).length > maxLen && currentLine.length > 0) {
+                lines.push(currentLine);
+                currentLine = word;
+            } else {
+                if(currentLine.length > 0) {
+                    currentLine += ' ' + word;
+                } else {
+                    currentLine = word;
+                }
+            }
+        }
+        lines.push(currentLine);
+        return lines;
+    };
+
+    // Chart.js Tooltip Title Callback
+    const tooltipTitleCallback = (tooltipItems) => {
+        const item = tooltipItems[0];
+        let label = item.chart.data.labels[item.dataIndex];
+        if (Array.isArray(label)) {
+            return label.join(' ');
+        } else {
+            return label;
+        }
+    };
+
+    const defaultTooltipOptions = {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    title: tooltipTitleCallback
+                }
+            }
+        }
+    };
+
+    // Example Chart: Market Share (Doughnut Chart) - Used for "Формула продукта" in "Что это?" section
+    const marketShareCtx = document.getElementById('marketShareChart');
+    if (marketShareCtx) { // Ensure element exists before creating chart
+        new Chart(marketShareCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Продукт', 'Сделка', 'Аналитика исполнения', 'Моделирование роста'],
+                datasets: [{
+                    data: [25, 25, 25, 25], // Equal distribution for formula components
+                    backgroundColor: ['#1976D2', '#2196F3', '#64B5F6', '#90CAF9'], // Blue shades
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                ...defaultTooltipOptions,
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Example Chart: Growth Projections (Line Chart)
+    const growthProjectionsCtx = document.getElementById('growthProjectionsChart');
+    if (growthProjectionsCtx) { // Ensure element exists before creating chart
+        new Chart(growthProjectionsCtx, {
+            type: 'line',
+            data: {
+                labels: ['2022', '2023', '2024', '2025 (Прогноз)', '2026 (Прогноз)'],
+                datasets: [{
+                    label: 'Рост управляемости сделок (%)',
+                    data: [50, 65, 75, 90, 95], // Hypothetical data
+                    fill: false,
+                    borderColor: '#1976D2',
+                    tension: 0.3,
+                    pointBackgroundColor: '#1976D2',
+                    pointBorderColor: '#fff',
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            },
+            options: {
+                ...defaultTooltipOptions,
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Example Chart: Industry Relevance (Horizontal Bar Chart)
+    const industriesRelevanceCtx = document.getElementById('industriesRelevanceChart');
+    if (industriesRelevanceCtx) { // Ensure element exists before creating chart
+        new Chart(industriesRelevanceCtx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    wrapText('Банки и Финтех'),
+                    wrapText('Промышленность'),
+                    wrapText('Ритейл и Дистрибуция'),
+                    wrapText('IT и Консалтинг'),
+                    wrapText('Девелопмент/Строительство'),
+                    wrapText('Образование/EdTech'),
+                    wrapText('Фармацевтика/Мед. B2B'),
+                    wrapText('Логистика/Транспорт'),
+                    wrapText('Агросектор')
+                ],
+                datasets: [{
+                    label: 'Актуальность DealsNext (условный балл)',
+                    data: [9.5, 9.0, 8.5, 8.8, 7.5, 7.0, 8.0, 8.3, 7.2],
+                    backgroundColor: [
+                        '#1976D2', '#2196F3', '#64B5F6', '#90CAF9', '#BBDEFB',
+                        '#F57C00', '#FFB300', '#FFCA28', '#FFD54F'
+                    ],
+                    borderColor: '#1976D2',
+                    borderWidth: 1,
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                ...defaultTooltipOptions,
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 10,
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Gemini API Integration for Objection Handler
+    document.addEventListener('DOMContentLoaded', () => {
+        const objectionInput = document.getElementById('objectionInput');
+        const generateResponseBtn = document.getElementById('generateResponseBtn');
+        const aiResponseDiv = document.getElementById('aiResponse');
+        const aiResponseText = document.getElementById('aiResponseText');
+        const loader = document.getElementById('loader');
+
+        generateResponseBtn.addEventListener('click', async () => {
+            const userObjection = objectionInput.value.trim();
+            if (!userObjection) {
+                aiResponseText.textContent = 'Пожалуйста, введите свой вопрос или возражение.';
+                aiResponseDiv.classList.remove('hidden');
+                return;
+            }
+
+            loader.classList.remove('hidden');
+            generateResponseBtn.disabled = true;
+            aiResponseDiv.classList.add('hidden'); // Hide previous response
+
+            try {
+                let chatHistory = [];
+                const prompt = `Вы — высококвалифицированный эксперт по продажам B2B SaaS-продукта DealsNext Suite. Ваша задача — дать убедительный и краткий ответ на возражение или вопрос потенциального клиента. DealsNext Suite помогает крупным компаниям (банки, телеком, промышленность, IT) с длинным и сложным циклом сделок зарабатывать больше, через контроль условий, автоматизацию и аналитику.
+
+Основные преимущества DealsNext Suite:
+- Видимость прибыли до, а не после сделки.
+- Управление условиями: скидки, ставки, исключения.
+- Автоматизация расчётов: исключаем ошибки.
+- Контроль SLA и узких мест.
+- Интеграция с вашей CRM и ERP.
+- Платформа уже внедрена в ВТБ и получила премию FINNEXT 2025.
+- Сокращение цикла сделки на 30%, рост доходности на 15%.
+
+Частые возражения и ответы на них:
+- "У нас уже есть CRM": CRM = контакт, DealsNext = прибыль, условия, рост. Мы дополняем CRM, превращая контакты в деньги.
+- "Сложно внедрять": Быстрый запуск, поэтапное масштабирование. Первые результаты видны за месяцы.
+- "У нас уникальные процессы": Модульная архитектура, гибкая настройка под вас. Система адаптируется под ваши процессы.
+- "Долго согласуем сделки": Сокращение цикла согласований в 3+ раза, подтверждено ВТБ.
+- "Бюджет": Инвестиция, которая приносит ROI +15% к доходности крупных сделок. Вы зарабатываете, а не тратите.
+
+Теперь, ответьте на следующее возражение/вопрос клиента: "${userObjection}"`;
+
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Canvas will automatically provide this
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    aiResponseText.textContent = text;
+                    aiResponseDiv.classList.remove('hidden');
+                } else {
+                    aiResponseText.textContent = 'К сожалению, не удалось получить ответ от AI. Попробуйте еще раз или сформулируйте вопрос иначе.';
+                    aiResponseDiv.classList.remove('hidden');
+                    console.error('Unexpected API response structure:', result);
+                }
+            } catch (error) {
+                aiResponseText.textContent = 'Произошла ошибка при обращении к AI. Пожалуйста, проверьте ваше интернет-соединение или попробуйте позже.';
+                aiResponseDiv.classList.remove('hidden');
+                console.error('Error calling Gemini API:', error);
+            } finally {
+                loader.classList.add('hidden');
+                generateResponseBtn.disabled = false;
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

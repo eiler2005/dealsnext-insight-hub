@@ -22,9 +22,7 @@
 
 ## 🌟 DealsNext Suite Landing Page
 
-[![Demo Landing Page](https://img.shields.io/badge/Landing-Online-blue?logo=githubpages)](https://ВАША_ССЫЛКА_GITHUB_PAGES)
-[![Repo](https://img.shields.io/github/stars/ВАШ_ГИТХАБ_ЮЗЕР/ВАШ_РЕПО?style=social)](https://github.com/ВАШ_ГИТХАБ_ЮЗЕР/ВАШ_РЕПО)
-
+[Посмотреть HTML код](https://github.com/eiler2005/dealsnext-insight-hub/blob/main/landingpage.html)
 **Актуальный маркетинговый лендинг для DealsNext Suite.**
 
 **Смотреть лендинг:**  
