@@ -1,9 +1,10 @@
-
 import Header from "@/components/layout/Header";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import ConditionSidebarWidgets from "@/components/individual-conditions/ConditionSidebarWidgets";
 import ConditionDetailModal from "@/components/individual-conditions/ConditionDetailModal";
+import ConditionTypeTiles from "@/components/individual-conditions/ConditionTypeTiles";
+import ConditionAnalyticsWidgets from "@/components/individual-conditions/ConditionAnalyticsWidgets";
 import { FilePlus, FileText } from "lucide-react";
 
 // Мок-данные
@@ -49,9 +50,18 @@ const IndividualConditions = () => {
   return (
     <>
       <Header />
-      <div className="flex-1 flex flex-col md:flex-row gap-6 p-6 max-w-[1520px] mx-auto">
+      <div className="flex-1 flex flex-col gap-4 p-6 max-w-[1520px] mx-auto">
+        {/* ВИДИМЫЙ ВЕРХ — первый row: типы условий */}
+        <ConditionTypeTiles />
+
+        {/* Вторая строка — key метрики & summary */}
+        <ConditionSidebarWidgets />
+
+        {/* Третья строка — аналитические виджеты графиков */}
+        <ConditionAnalyticsWidgets />
+
         {/* Основной блок */}
-        <section className="flex-1 flex flex-col gap-5">
+        <section className="flex-1 flex flex-col gap-5 mt-4">
           {/* Верхняя панель с фильтрами и кнопками */}
           <div className="bg-white/90 rounded-2xl p-4 border shadow flex flex-col md:flex-row gap-4 md:items-end justify-between sticky top-0 z-10">
             <div className="flex gap-3 flex-wrap">
