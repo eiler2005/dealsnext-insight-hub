@@ -20,7 +20,6 @@ import {
   Cell,
   ScatterChart,
   Scatter,
-  ZAxis,
   ResponsiveContainer,
 } from "recharts";
 import { TrendingUp, Map, ChartBar, ChartPie } from "lucide-react";
@@ -49,14 +48,6 @@ const productScatter = [
   { product: "Депозиты", clients: 210, profit: 240 },
 ];
 
-const slaSegment = [
-  { segment: "МСБ", sla: 4.9 },
-  { segment: "Крупный бизнес", sla: 3.2 },
-  { segment: "Госсектор", sla: 2.4 },
-  { segment: "Розница", sla: 1.7 },
-];
-
-// Для Pie-chart по отраслям (примерно)
 const profitByIndustry = [
   { industry: "Строительство", value: 400 },
   { industry: "Ритейл", value: 210 },
@@ -70,88 +61,149 @@ const pieColors = [
 
 const ProductEffectivenessCharts = () => {
   return (
-    <div className="grid md:grid-cols-2 gap-6 mb-6">
-      {/* График тренда прибыли/убыточности */}
-      <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col h-60">
-        <span className="font-medium mb-2 flex items-center gap-1">
-          <TrendingUp className="text-primary" size={18}/> Тренд прибыли
+    <div
+      className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-6 mb-6"
+      style={{ minHeight: 480 }}
+    >
+      {/* Левая верхняя: Тренд прибыли */}
+      <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col min-h-[220px] md:min-h-[260px]">
+        <span className="font-medium mb-2 flex items-center gap-2 text-[15px]">
+          <TrendingUp className="text-primary" size={19}/> Тренд прибыли
         </span>
-        <ChartContainer config={{
-          profit: { label: "Прибыль", color: "#2563eb", icon: TrendingUp },
-        }}>
-          <LineChart data={profitTrend}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="period" />
-            <YAxis unit=" млн" />
-            <Tooltip content={<ChartTooltipContent />} />
-            <Legend content={<ChartLegendContent />} />
-            <Line type="monotone" dataKey="profit" stroke="#2563eb" strokeWidth={2} dot />
-          </LineChart>
-        </ChartContainer>
+        <div className="flex-1">
+          <ChartContainer config={{
+            profit: { label: "Прибыль", color: "#2563eb", icon: TrendingUp },
+          }}>
+            <LineChart data={profitTrend}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="period" />
+              <YAxis unit=" млн" domain={[200, 400]} />
+              <Tooltip content={<ChartTooltipContent />} />
+              <Legend content={<ChartLegendContent />} />
+              <Line
+                type="monotone"
+                dataKey="profit"
+                stroke="#2563eb"
+                strokeWidth={2}
+                dot={{ r: 4 }}
+                activeDot={{ r: 6 }}
+              />
+            </LineChart>
+          </ChartContainer>
+        </div>
       </div>
-
-      {/* Карта эффективности по регионам */}
-      <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col h-60">
-        <span className="font-medium mb-2 flex items-center gap-1">
-          <Map className="text-primary" size={18}/> Эффективность по регионам
+      {/* Правая верхняя: Эффективность по регионам (Bar) */}
+      <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col min-h-[220px] md:min-h-[260px]">
+        <span className="font-medium mb-2 flex items-center gap-2 text-[15px]">
+          <Map className="text-primary" size={19}/> Эффективность по регионам
         </span>
-        <ChartContainer
-          config={{
-            profit: { label: "Прибыль", color: "#10b981", icon: ChartBar },
-            sla: { label: "SLA", color: "#f87171" },
-          }}
-        >
-          <BarChart data={regionData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="region" />
-            <YAxis unit=" млн" />
-            <Tooltip content={<ChartTooltipContent />} />
-            <Legend content={<ChartLegendContent />} />
-            <Bar dataKey="profit" fill="#10b981" />
-          </BarChart>
-        </ChartContainer>
+        <div className="flex-1">
+          <ChartContainer
+            config={{
+              profit: { label: "Прибыль", color: "#10b981", icon: ChartBar },
+            }}
+          >
+            <BarChart data={regionData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="region" />
+              <YAxis unit=" млн" domain={[0, 600]} />
+              <Tooltip content={<ChartTooltipContent />} />
+              <Legend content={<ChartLegendContent />} />
+              <Bar dataKey="profit" fill="#10b981" barSize={48} />
+            </BarChart>
+          </ChartContainer>
+        </div>
       </div>
-
-      {/* Популярность vs прибыльность (ScatterChart) */}
-      <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col h-60">
-        <span className="font-medium mb-2 flex items-center gap-1">
-          <ChartBar className="text-primary" size={18}/> Популярность vs прибыльность
+      {/* Левая нижняя: Популярность vs прибыльность (Scatter) */}
+      <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col min-h-[200px] md:min-h-[210px]">
+        <span className="font-medium mb-2 flex items-center gap-2 text-[15px]">
+          <ChartBar className="text-primary" size={19}/> Популярность vs прибыльность
         </span>
-        <ResponsiveContainer width="100%" height="100%">
-          <ScatterChart margin={{ top: 16, right: 8, left: 0, bottom: 8 }}>
-            <CartesianGrid />
-            <XAxis dataKey="clients" name="Клиенты" unit="" />
-            <YAxis dataKey="profit" name="Прибыль" unit=" млн" />
-            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-            <Scatter name="Продукты" data={productScatter} fill="#6366f1" />
-          </ScatterChart>
-        </ResponsiveContainer>
-      </div>
-
-      {/* Диаграмма распределения прибыли по отраслям (PieChart) */}
-      <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col h-60">
-        <span className="font-medium mb-2 flex items-center gap-1">
-          <ChartPie className="text-primary" size={18}/> Прибыль по отраслям
-        </span>
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={profitByIndustry}
-              dataKey="value"
-              nameKey="industry"
-              cx="50%"
-              cy="50%"
-              outerRadius={50}
-              label
+        <div className="flex-1 min-h-[150px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <ScatterChart
+              margin={{ top: 16, right: 8, left: 0, bottom: 8 }}
             >
-              {profitByIndustry.map((entry, i) => (
-                <Cell key={entry.industry} fill={pieColors[i % pieColors.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
-        </ResponsiveContainer>
+              <CartesianGrid />
+              <XAxis
+                dataKey="clients"
+                name="Клиенты"
+                unit=""
+                tick={{ fontSize: 13 }}
+                domain={[0, 210]}
+                type="number"
+              />
+              <YAxis
+                dataKey="profit"
+                name="Прибыль"
+                unit=" млн"
+                tick={{ fontSize: 13 }}
+                domain={[0, 1200]}
+                type="number"
+              />
+              <Tooltip
+                cursor={{ strokeDasharray: '3 3' }}
+                contentStyle={{ fontSize: 13 }}
+              />
+              <Scatter
+                name="Продукты"
+                data={productScatter}
+                fill="#2563eb"
+                line
+                shape="circle"
+              />
+            </ScatterChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+      {/* Правая нижняя: Диаграмма по отраслям (Pie) */}
+      <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col min-h-[200px] md:min-h-[210px]">
+        <span className="font-medium mb-2 flex items-center gap-2 text-[15px]">
+          <ChartPie className="text-primary" size={19}/> Прибыль по отраслям
+        </span>
+        <div className="flex-1 flex flex-col items-center justify-evenly min-h-[150px]">
+          <ResponsiveContainer width={190} height={140}>
+            <PieChart>
+              <Pie
+                data={profitByIndustry}
+                dataKey="value"
+                nameKey="industry"
+                cx="50%"
+                cy="50%"
+                outerRadius={56}
+                label={({ name, value }) => `${value}`}
+                labelLine={false}
+                paddingAngle={0}
+                stroke="#fff"
+              >
+                {profitByIndustry.map((entry, i) => (
+                  <Cell key={entry.industry} fill={pieColors[i % pieColors.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend
+                align="center"
+                verticalAlign="bottom"
+                iconType="square"
+                height={36}
+                wrapperStyle={{
+                  fontSize: 13,
+                  marginTop: 12,
+                }}
+                formatter={(value: string) => {
+                  switch (value) {
+                    case "Строительство": return <span style={{ color: "#2563eb" }}>Строительство</span>;
+                    case "Ритейл": return <span style={{ color: "#10b981" }}>Ритейл</span>;
+                    case "IT": return <span style={{ color: "#fbbf24" }}>IT</span>;
+                    case "Агро": return <span style={{ color: "#f87171" }}>Агро</span>;
+                    case "Другие": return <span style={{ color: "#6366f1" }}>Другие</span>;
+                    default: return value;
+                  }
+                }}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );
