@@ -1,5 +1,4 @@
 
-import { useState } from "react";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Client } from "@/data/mockData";
 
@@ -27,6 +26,8 @@ export default function ClientsTable({ clients, onSelect }: ClientsTableProps) {
             <TableHead>Статус</TableHead>
             <TableHead>Последняя сделка</TableHead>
             <TableHead>Менеджер</TableHead>
+            <TableHead>Тип</TableHead>
+            <TableHead>Теги</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -38,6 +39,12 @@ export default function ClientsTable({ clients, onSelect }: ClientsTableProps) {
               <TableCell className={kpiColor(c.status)}>{c.status}</TableCell>
               <TableCell>{c.lastDealDate}</TableCell>
               <TableCell>{c.manager}</TableCell>
+              <TableCell>{c.type}</TableCell>
+              <TableCell>
+                {c.tags?.map(tag => (
+                  <span key={tag} className="inline-block text-xs bg-muted rounded px-2 mr-1">{tag}</span>
+                ))}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

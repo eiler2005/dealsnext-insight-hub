@@ -166,6 +166,8 @@ export type Client = {
   products: string[];
   customTerms: boolean;
   comments: string;
+  type?: string; // "VIP" | "Страт." | "Станд."
+  tags?: string[]; // ["тендер", "key client", "есть заметки", ...]
 };
 
 export const clientsData: Client[] = [
@@ -175,7 +177,7 @@ export const clientsData: Client[] = [
     profit: 12300000,
     sla: 3.2,
     status: "🔴 Риск",
-    lastDealDate: "15.05.2025",
+    lastDealDate: "2025-05-15",
     manager: "И. Сидоров",
     industry: "Логистика",
     region: "Москва",
@@ -183,6 +185,8 @@ export const clientsData: Client[] = [
     products: ["Корп. кредит", "Овердрафт"],
     customTerms: false,
     comments: "Возможный отток, требуется встреча.",
+    type: "Станд.",
+    tags: ["тендер"]
   },
   {
     id: "client-002",
@@ -190,7 +194,7 @@ export const clientsData: Client[] = [
     profit: 24800000,
     sla: 2.0,
     status: "🟢 Активный",
-    lastDealDate: "11.06.2025",
+    lastDealDate: "2025-06-11",
     manager: "А. Белова",
     industry: "Логистика",
     region: "Поволжье",
@@ -198,6 +202,8 @@ export const clientsData: Client[] = [
     products: ["Факторинг", "Овердрафт"],
     customTerms: true,
     comments: "Расширяют бизнес в Поволжье, планируется доп. сделка в Q3.",
+    type: "VIP",
+    tags: ["key client"]
   },
   {
     id: "client-003",
@@ -205,7 +211,7 @@ export const clientsData: Client[] = [
     profit: 8500000,
     sla: 5.4,
     status: "🟡 Низкая активность",
-    lastDealDate: "29.04.2025",
+    lastDealDate: "2025-04-29",
     manager: "М. Орлов",
     industry: "Ритейл",
     region: "Москва",
@@ -213,6 +219,8 @@ export const clientsData: Client[] = [
     products: ["Гарантия", "Лизинг"],
     customTerms: false,
     comments: "Потеря одного из ключевых контрактов.",
+    type: "Страт.",
+    tags: ["есть заметки"]
   },
   // ... добавьте по необходимости еще клиентов ...
 ];

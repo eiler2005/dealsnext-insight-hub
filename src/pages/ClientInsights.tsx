@@ -9,13 +9,19 @@ import { clientsData, Client } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 
+// исправленный стейт (sla: [number, number], profitRange: [number, number])
 const initialFilters = {
   industry: "Все",
-  profitRange: [0, 50000000],
+  profitRange: [0, 50000000] as [number, number],
   region: "",
   activity: "Все",
-  sla: "",
+  sla: [0, 14] as [number, number], // теперь массив чисел
   search: "",
+  type: "Все",           // новый фильтр (тип клиента)
+  hasCustomTerms: "Все", // новый фильтр (инд. условия)
+  lastDealFrom: "",      // дата ОТ
+  lastDealTo: "",        // дата ДО
+  onlyWithComments: false // новый чекбокс
 };
 
 const filterClients = (clients: Client[], filters: typeof initialFilters) => {
@@ -26,17 +32,38 @@ const filterClients = (clients: Client[], filters: typeof initialFilters) => {
       !filters.region || client.region.includes(filters.region);
     const matchesProfit =
       client.profit >= filters.profitRange[0] && client.profit <= filters.profitRange[1];
-    const matchesSLA = !filters.sla || client.sla <= filters.sla;
+    const matchesSLA = (
+      (typeof client.sla === "number") &&
+      client.sla >= filters.sla[0] &&
+      client.sla <= filters.sla[1]
+    );
     const matchesSearch =
       !filters.search ||
       client.name.toLowerCase().includes(filters.search.toLowerCase()) ||
       client.manager.toLowerCase().includes(filters.search.toLowerCase());
+    const matchesType =
+      filters.type === "Все" || client.type === filters.type;
+    const matchesCustomTerms =
+      filters.hasCustomTerms === "Все" || (filters.hasCustomTerms === "Да" ? client.customTerms : !client.customTerms);
+    const matchesActivity =
+      filters.activity === "Все" || client.activity?.toLowerCase().includes(filters.activity.toLowerCase());
+    const matchesLastDealDate =
+      (!filters.lastDealFrom || client.lastDealDate >= filters.lastDealFrom)
+      && (!filters.lastDealTo || client.lastDealDate <= filters.lastDealTo);
+    const matchesComments =
+      !filters.onlyWithComments || (client.comments && client.comments.trim().length > 0);
+
     return (
       matchesIndustry &&
       matchesRegion &&
       matchesProfit &&
       matchesSLA &&
-      matchesSearch
+      matchesSearch &&
+      matchesType &&
+      matchesCustomTerms &&
+      matchesActivity &&
+      matchesLastDealDate &&
+      matchesComments
     );
   });
 };
