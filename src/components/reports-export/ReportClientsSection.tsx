@@ -1,9 +1,20 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { BarChart2, Users, Award } from "lucide-react";
 import ReportDetailModal from "./ReportDetailModal";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  ResponsiveContainer,
+  Tooltip,
+  Cell,
+} from "recharts";
 
+// Демо-данные для таблицы
 const clientsDemoRows = [
   {
     id: 1,
@@ -11,6 +22,7 @@ const clientsDemoRows = [
     products: "API-платформа",
     deals: 5,
     totalProfit: "12 млн ₽",
+    totalProfitValue: 12,
     avgProfit: "2.4 млн ₽",
     avgSLA: "3.1 дня",
     lastActive: "23.05.2025",
@@ -22,6 +34,7 @@ const clientsDemoRows = [
     products: "CRM-интеграция",
     deals: 3,
     totalProfit: "8.5 млн ₽",
+    totalProfitValue: 8.5,
     avgProfit: "2.83 млн ₽",
     avgSLA: "4.8 дня",
     lastActive: "01.06.2025",
@@ -33,12 +46,18 @@ const clientsDemoRows = [
     products: "API-платформа, CRM",
     deals: 2,
     totalProfit: "5.2 млн ₽",
+    totalProfitValue: 5.2,
     avgProfit: "2.6 млн ₽",
     avgSLA: "2.6 дня",
     lastActive: "04.06.2025",
     comment: "",
   },
 ];
+
+// Для графика берём тот же демо-массив (можно отсортировать, если нужен топ-10)
+const chartData = clientsDemoRows
+  .map((c) => ({ name: c.name, value: c.totalProfitValue }))
+  .sort((a, b) => b.value - a.value);
 
 export default function ReportClientsSection() {
   const [detail, setDetail] = useState<any>(null);
@@ -101,9 +120,29 @@ export default function ReportClientsSection() {
               <CardTitle className="text-base">Топ-10 клиентов по прибыли</CardTitle>
             </CardHeader>
             <CardContent>
-              {/* Здесь будет график, сейчас демо */}
-              <p className="text-muted-foreground mb-2">График-демо (отобразить топ-клиентов по прибыли).</p>
-              <div className="h-32 flex items-center justify-center text-muted-foreground italic opacity-60">[Chart placeholder]</div>
+              <p className="text-muted-foreground mb-2">График: топ-клиенты по прибыли.</p>
+              <div className="h-44 flex items-center justify-center">
+                <ResponsiveContainer width="100%" height={170}>
+                  <BarChart
+                    data={chartData}
+                    layout="vertical"
+                    margin={{ left: 24, right: 12, top: 8, bottom: 8 }}
+                    barSize={26}
+                  >
+                    <XAxis type="number" hide />
+                    <YAxis type="category" dataKey="name" width={100} />
+                    <Tooltip
+                      formatter={value => `${value} млн ₽`}
+                      cursor={{ fill: "#f1f5f9" }}
+                    />
+                    <Bar dataKey="value" fill="#3b82f6">
+                      {chartData.map((entry, i) => (
+                        <Cell key={`cell-${i}`} fill="#3b82f6" />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -127,3 +166,4 @@ export default function ReportClientsSection() {
     </div>
   );
 }
+
