@@ -10,6 +10,10 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ---
 
+### About system (onboarding for users)
+
+![Dashboard Screenshot](public/screenshots/Onboarding.png)
+
 ### Dashboard
 
 ![Dashboard Screenshot](public/screenshots/photo-1488590528505-98d2b5aba04b.jpg)
@@ -60,7 +64,13 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Analytics Overview
 
-![Analytics Overview](/screenshots/photo-1649972904349-6e44c42644a7.jpg)
+![Analytics Screenshot](/public/screenshots/img.png)
+
+![img_1.png](public/screenshots/img_1.png)
+
+![img_2.png](public/screenshots/img_2.png)
+
+![img_2.png](public/screenshots/img_3.png)
 
 - **Data Visualization:** Explore KPIs, timelines, and trends.
 - **Interactive Graphs:** Click-through for deeper insights.
@@ -69,7 +79,13 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Product Card
 
-![Product Card](/screenshots/photo-1531297484001-80022131f5a1.jpg)
+![Product Card](Product%20CardScreen.png)
+
+![img_4.png](public/screenshots/img_4.png)
+
+![img_5.png](public/screenshots/img_5.png)
+
+![img_6.png](public/screenshots/img_6.png)
 
 - **Key Info:** See product rating, ROI, margin.
 - **Expandable Details:** Get a full performance breakdown.
@@ -78,7 +94,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Clients Table
 
-![Clients Table](/screenshots/photo-1581091226825-a6a2a5aee158.jpg)
+![Clients Table](public/screenshots/img_7.png)
 
 - **Client Segmentation:** Drill into top/bottom client groups.
 - **Action Shortcuts:** View client details, trends, and history.
@@ -87,7 +103,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Developer/Analytics View
 
-![Developer Code Screenshot](/screenshots/photo-1487058792275-0ad4aaf24ca7.jpg)
+![Developer Code Screenshot](public/screenshots/img_8.png)
 
 - **Technical Analytics:** For advanced users or developers.
 - **Code Integration:** Example of code view for custom data analysis.
@@ -100,6 +116,10 @@ Below you will find expanded interface screenshots and descriptions of the main 
 Здесь представлен расширенный обзор ключевых экранов и описания основных модулей.
 
 ---
+
+### Раздел о системе (пояснение о чем продукт и т п)
+
+![Dashboard Screenshot](public/screenshots/Onboarding.png)
 
 ### Дашборд
 
@@ -151,7 +171,13 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Аналитика
 
-![Analytics Screenshot](/screenshots/photo-1649972904349-6e44c42644a7.jpg)
+![Analytics Screenshot](/public/screenshots/img.png)
+
+![img_1.png](public/screenshots/img_1.png)
+
+![img_2.png](public/screenshots/img_2.png)
+
+![img_2.png](public/screenshots/img_3.png)
 
 - **Визуализация:** Графики трендов, KPI по периодам.
 - **Глубокие данные:** Кликабельные элементы для быстрого перехода к деталям.
@@ -160,7 +186,13 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Карточка продукта
 
-![Карточка продукта](/screenshots/photo-1531297484001-80022131f5a1.jpg)
+![Карточка продукта](Product%20CardScreen.png)
+
+![img_4.png](public/screenshots/img_4.png)
+
+![img_5.png](public/screenshots/img_5.png)
+
+![img_6.png](public/screenshots/img_6.png)
 
 - **Ключевые метрики:** Рейтинг, прибыль, маржа.
 - **Раскрытие:** Детальная история продаж/результатов.
@@ -169,7 +201,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Клиенты
 
-![Клиенты](/screenshots/photo-1581091226825-a6a2a5aee158.jpg)
+![Клиенты]((img_7.png))
 
 - **Сегментация:** Отбор ведущих и менее успешных клиентов.
 - **Быстрый доступ:** История и тренды по каждому клиенту.
@@ -178,7 +210,7 @@ Below you will find expanded interface screenshots and descriptions of the main 
 
 ### Тех.раздел/Код
 
-![Код](/screenshots/photo-1487058792275-0ad4aaf24ca7.jpg)
+![Код](public/screenshots/img_8.png)
 
 - **Техноподдержка/разработчикам:** Пример вида с технической детализацией.
 - **Возможность интеграции кода:** Для кастомного анализа.
