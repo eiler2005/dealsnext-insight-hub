@@ -20,6 +20,31 @@
 
 ---
 
+## 🌟 DealsNext Suite Landing Page
+
+[![Demo Landing Page](https://img.shields.io/badge/Landing-Online-blue?logo=githubpages)](https://ВАША_ССЫЛКА_GITHUB_PAGES)
+[![Repo](https://img.shields.io/github/stars/ВАШ_ГИТХАБ_ЮЗЕР/ВАШ_РЕПО?style=social)](https://github.com/ВАШ_ГИТХАБ_ЮЗЕР/ВАШ_РЕПО)
+
+**Актуальный маркетинговый лендинг для DealsNext Suite.**
+
+**Смотреть лендинг:**  
+👉 [Перейти к лендингу](https://ВАША_ССЫЛКА_GITHUB_PAGES)
+
+**Исходный код лендинга:**  
+👉 [GitHub Repo (landing page)](https://github.com/ВАШ_ГИТХАБ_ЮЗЕР/ВАШ_РЕПО)
+
+---
+
+### Как создать и опубликовать лендинг самостоятельно
+
+1. Создайте новый репозиторий на GitHub, например, `dealsnext-landing`.
+2. Поместите в репозиторий файл `index.html` с содержимым вашего лендинга.
+3. Активируйте [GitHub Pages](https://docs.github.com/ru/pages/getting-started-with-github-pages/creating-a-github-pages-site) (по ветке main, папка root).
+4. В настройках появится ссылка на опубликованный лендинг.  
+5. Вставьте эту ссылку сверху вместо `ВАША_ССЫЛКА_GITHUB_PAGES` и измените ссылки на репозиторий.
+
+---
+
 ## 🇺🇸 Description
 
 **DealsNextV0** is the first version of an intelligent system for automating and optimizing the discovery of great deals and offers in B2B. The project is built using the AI-powered rapid development tool **Lovable**, which significantly accelerated the development process.
