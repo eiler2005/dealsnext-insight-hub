@@ -154,10 +154,6 @@ const IndividualConditions = () => {
             </table>
           </div>
         </section>
-        {/* Боковые виджеты */}
-        <aside className="hidden lg:flex flex-col gap-4 w-[340px] shrink-0 max-h-[90vh]">
-          <ConditionSidebarWidgets />
-        </aside>
       </div>
       <ConditionDetailModal
         open={selected !== null}
