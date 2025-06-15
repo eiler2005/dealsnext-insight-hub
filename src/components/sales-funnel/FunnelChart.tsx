@@ -25,29 +25,36 @@ const FunnelChartComponent = ({
   };
 
   return (
-    <div style={{ width: "100%", height: 400 }}>
-      <ResponsiveContainer>
-        <FunnelChart>
-          <Tooltip />
-          <Funnel
-            dataKey="value"
-            data={salesFunnelData}
-            isAnimationActive
-            onClick={handleSegmentClick}
-          >
-            <LabelList position="right" fill="#000" stroke="none" dataKey="name" />
-            <LabelList position="center" fill="#fff" stroke="none" dataKey="value" />
-          </Funnel>
-        </FunnelChart>
-      </ResponsiveContainer>
-      <div className="text-center text-xs mt-2 text-muted-foreground">
-        Кликните по этапу, чтобы увидеть сделки
+    <div
+      style={{ width: "100%", minHeight: 400 }}
+      className="rounded-lg bg-white border mb-2 pt-3 pb-2 px-2 flex flex-col items-center"
+    >
+      <div className="w-full" style={{ height: 340 }}>
+        <ResponsiveContainer>
+          <FunnelChart>
+            <Tooltip />
+            <Funnel
+              dataKey="value"
+              data={salesFunnelData}
+              isAnimationActive
+              onClick={handleSegmentClick}
+            >
+              <LabelList position="right" fill="#000" stroke="none" dataKey="name" />
+              <LabelList position="center" fill="#fff" stroke="none" dataKey="value" />
+            </Funnel>
+          </FunnelChart>
+        </ResponsiveContainer>
       </div>
-      {selectedStage && (
-        <div className="text-center text-sm font-medium mt-1">
-          Выбран этап: <span className="text-primary">{selectedStage}</span>
+      <div className="w-full flex flex-col items-center justify-center mb-2">
+        <div className="text-xs text-muted-foreground mt-1 mb-0.5 select-none">
+          Кликните по этапу, чтобы увидеть сделки
         </div>
-      )}
+        {selectedStage && (
+          <div className="text-sm font-medium mt-1">
+            Выбран этап: <span className="text-primary">{selectedStage}</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
