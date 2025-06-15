@@ -7,6 +7,7 @@ import ProductAnalyticsSidebar from "@/components/product-registry/ProductAnalyt
 import ProductCardSidebar from "@/components/product-registry/ProductCardSidebar";
 import ProductRoiScore from "@/components/product-registry/ProductRoiScore";
 import ProductAnalyticsSection from "@/components/product-registry/ProductAnalyticsSection";
+import ProductRatingComparisonSection from "@/components/product-registry/ProductRatingComparisonSection";
 
 // Демо-данные с метками и ROI Score
 const demoProducts = [
@@ -220,6 +221,7 @@ export default function ProductRegistry() {
           </div>
           {/* Новый красивый секционный блок аналитики */}
           <ProductAnalyticsSection />
+          <ProductRatingComparisonSection />
         </div>
       </div>
       {/* Сайдбар по продукту, если открыт */}
