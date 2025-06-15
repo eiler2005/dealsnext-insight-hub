@@ -1,10 +1,10 @@
-
 import React, { useState } from "react";
 import Header from "@/components/layout/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ArrowUp, ArrowDown } from "lucide-react";
+import ProductEffectivenessCharts from "@/components/product-effectiveness/ProductEffectivenessCharts";
 
 // Мок-данные по продуктам
 const productData = [
@@ -274,24 +274,7 @@ const ProductEffectiveness = () => {
         </div>
 
         {/* --- Блок графиков: тренды, карты, аналитика --- */}
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col h-60 items-center justify-center text-muted-foreground">
-            {/* Здесь будет график тренда прибыли/убыточности */}
-            <span>📊 График тренда прибыли/убыточности<br/><span className="text-xs">(заглушка, add recharts shadcn/ui/chart)</span></span>
-          </div>
-          <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col h-60 items-center justify-center text-muted-foreground">
-            {/* Здесь будет карта эффективности по регионам */}
-            <span>🗺️ Карта эффективности по регионам<br/><span className="text-xs">(заглушка)</span></span>
-          </div>
-          <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col h-60 items-center justify-center text-muted-foreground">
-            {/* График "Популярность vs прибыльность" */}
-            <span>✨ График "Популярность vs прибыльность"<br/><span className="text-xs">(заглушка)</span></span>
-          </div>
-          <div className="bg-white dark:bg-secondary rounded-lg shadow p-4 flex flex-col h-60 items-center justify-center text-muted-foreground">
-            {/* График SLA по продуктам */}
-            <span>📉 График SLA по продуктам<br/><span className="text-xs">(заглушка)</span></span>
-          </div>
-        </div>
+        <ProductEffectivenessCharts />
 
         {/* --- AI-рекомендации --- */}
         <div className="bg-gradient-to-br from-blue-50 to-white dark:from-zinc-900 dark:to-secondary rounded-lg p-6 shadow mb-6">
