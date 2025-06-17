@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Header from "@/components/layout/Header";
 import DealsFilters from "@/components/deals/DealsFilters";
+import DealsSummaryWidgets from "@/components/deals/DealsSummaryWidgets";
 import DealsTable from "@/components/deals/DealsTable";
 import DealsCards from "@/components/deals/DealsCards";
 import { Button } from "@/components/ui/button";
@@ -80,6 +81,9 @@ const Deals = () => {
 
         {/* Filters */}
         <DealsFilters onFiltersChange={handleFiltersChange} />
+
+        {/* Summary Widgets */}
+        <DealsSummaryWidgets deals={filteredDeals} />
 
         {/* Deals Content */}
         <div className="mt-6">
