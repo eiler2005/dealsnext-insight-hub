@@ -8,7 +8,7 @@ export const kpiData = [
     trend: "+15%",
     description: "По сравнению с прошлым месяцем",
     change: "15%",
-    changeType: "positive" as const,
+    changeType: "increase" as const,
     icon: DollarSign,
   },
   {
@@ -17,7 +17,7 @@ export const kpiData = [
     trend: "-5%",
     description: "По сравнению с прошлым месяцем",
     change: "-5%",
-    changeType: "negative" as const,
+    changeType: "decrease" as const,
     icon: BarChart2,
   },
   {
@@ -26,7 +26,7 @@ export const kpiData = [
     trend: "+20%",
     description: "По сравнению с прошлым месяцем",
     change: "20%",
-    changeType: "positive" as const,
+    changeType: "increase" as const,
     icon: Users,
   },
   {
@@ -35,7 +35,7 @@ export const kpiData = [
     trend: "+3%",
     description: "По сравнению с прошлым месяцем",
     change: "3%",
-    changeType: "positive" as const,
+    changeType: "increase" as const,
     icon: Package,
   },
 ];
@@ -81,6 +81,11 @@ export const navItems = [
     name: "Сделки",
     path: "/deals",
     icon: "deal-profitability",
+  },
+  {
+    name: "Мониторинг команды",
+    path: "/team-monitoring",
+    icon: "users",
   },
   {
     name: "Прибыльность сделок",
@@ -143,58 +148,82 @@ export const chartData = [
 export interface Deal {
   id: string;
   client: string;
+  clientName?: string;
   products: string[];
+  product?: string;
   revenue: number;
   cost: number;
   profit: number;
   margin: number;
   status: string;
   date: string;
+  amount?: number;
+  manager?: string;
+  startDate?: string;
+  expectedEndDate?: string;
+  responsible?: string;
+  sla?: string;
+  marginality?: string;
+  profitability?: number;
+  hasUrgentTasks?: boolean;
+  conditionsType?: string;
 }
 
 export const dealProfitabilityData: Deal[] = [
   {
     id: "DL-001",
     client: "ООО Технологии Будущего",
+    clientName: "ООО Технологии Будущего",
     products: ["CRM Enterprise", "Analytics Pro"],
+    product: "CRM Enterprise",
     revenue: 3000000,
     cost: 500000,
     profit: 2500000,
     margin: 83.3,
     status: "Завершена",
-    date: "2024-01-15"
+    date: "2024-01-15",
+    amount: 3000000,
+    manager: "Иванов И.И."
   },
   {
     id: "DL-002",
     client: "АО Промышленные Решения",
+    clientName: "АО Промышленные Решения",
     products: ["ERP Standard"],
+    product: "ERP Standard",
     revenue: 2200000,
     cost: 400000,
     profit: 1800000,
     margin: 81.8,
     status: "Исполняется",
-    date: "2024-02-01"
+    date: "2024-02-01",
+    amount: 2200000,
+    manager: "Петрова С.А."
   },
   {
     id: "DL-003",
     client: "ПАО Банк Развития",
+    clientName: "ПАО Банк Развития",
     products: ["Financial Analytics", "Risk Management"],
+    product: "Financial Analytics",
     revenue: 5000000,
     cost: 800000,
     profit: 4200000,
     margin: 84.0,
     status: "Завершена",
-    date: "2023-11-10"
+    date: "2023-11-10",
+    amount: 5000000,
+    manager: "Сидоров А.В."
   }
 ];
 
 // Sales funnel data
 export const salesFunnelData = [
-  { stage: "Лиды", count: 1000, conversion: 100 },
-  { stage: "Квалификация", count: 300, conversion: 30 },
-  { stage: "Предложение", count: 150, conversion: 15 },
-  { stage: "Переговоры", count: 75, conversion: 7.5 },
-  { stage: "Закрытие", count: 30, conversion: 3 },
+  { stage: "Лиды", count: 1000, conversion: 100, name: "Лиды", value: 1000, fill: "#8884d8" },
+  { stage: "Квалификация", count: 300, conversion: 30, name: "Квалификация", value: 300, fill: "#82ca9d" },
+  { stage: "Предложение", count: 150, conversion: 15, name: "Предложение", value: 150, fill: "#ffc658" },
+  { stage: "Переговоры", count: 75, conversion: 7.5, name: "Переговоры", value: 75, fill: "#ff7300" },
+  { stage: "Закрытие", count: 30, conversion: 3, name: "Закрытие", value: 30, fill: "#ff0000" },
 ];
 
 // Client data
@@ -206,6 +235,17 @@ export interface Client {
   deals: number;
   status: string;
   lastActivity: string;
+  region?: string;
+  profit?: number;
+  sla?: string;
+  manager?: string;
+  type?: string;
+  customTerms?: boolean;
+  activity?: string;
+  lastDealDate?: string;
+  comments?: string;
+  products?: string[];
+  tags?: string[];
 }
 
 export const clientsData: Client[] = [
@@ -216,7 +256,18 @@ export const clientsData: Client[] = [
     revenue: 3000000,
     deals: 5,
     status: "Активный",
-    lastActivity: "2024-01-15"
+    lastActivity: "2024-01-15",
+    region: "Москва",
+    profit: 2500000,
+    sla: "В срок",
+    manager: "Иванов И.И.",
+    type: "VIP",
+    customTerms: true,
+    activity: "Высокая",
+    lastDealDate: "2024-01-15",
+    comments: "Ключевой клиент",
+    products: ["CRM Enterprise", "Analytics Pro"],
+    tags: ["VIP", "Технологии"]
   },
   {
     id: "CL-002",
@@ -225,7 +276,18 @@ export const clientsData: Client[] = [
     revenue: 2200000,
     deals: 3,
     status: "Активный",
-    lastActivity: "2024-02-01"
+    lastActivity: "2024-02-01",
+    region: "СПб",
+    profit: 1800000,
+    sla: "Просрочка",
+    manager: "Петрова С.А.",
+    type: "Стандартный",
+    customTerms: false,
+    activity: "Средняя",
+    lastDealDate: "2024-02-01",
+    comments: "Регулярный клиент",
+    products: ["ERP Standard"],
+    tags: ["Промышленность"]
   },
   {
     id: "CL-003",
@@ -234,7 +296,18 @@ export const clientsData: Client[] = [
     revenue: 5000000,
     deals: 8,
     status: "VIP",
-    lastActivity: "2023-11-10"
+    lastActivity: "2023-11-10",
+    region: "Москва",
+    profit: 4200000,
+    sla: "В срок",
+    manager: "Сидоров А.В.",
+    type: "VIP",
+    customTerms: true,
+    activity: "Очень высокая",
+    lastDealDate: "2023-11-10",
+    comments: "Стратегический партнер",
+    products: ["Financial Analytics", "Risk Management"],
+    tags: ["VIP", "Банки", "Финансы"]
   }
 ];
 
@@ -295,5 +368,174 @@ export const dealsData = [
     profitability: 1500000,
     hasUrgentTasks: true,
     conditionsType: "Стандартные"
+  }
+];
+
+// Team monitoring data
+export interface TeamMember {
+  id: string;
+  name: string;
+  position: string;
+  department: string;
+  avatar?: string;
+  assignedTasks: number;
+  pendingTasks: number;
+  completionRate: number;
+  workloadLevel: "Низкая" | "Средняя" | "Высокая" | "Перегрузка";
+  isOnline: boolean;
+  avgTaskTime: number;
+}
+
+export interface Task {
+  id: string;
+  title: string;
+  type: "Согласование условий" | "Юридическая проверка" | "Финансовая проверка" | "Техническая проверка";
+  status: "Новая" | "В работе" | "Просроченная" | "Завершена";
+  deadline: string;
+  priority: "Низкий" | "Средний" | "Высокий" | "Критический";
+  dealId: string;
+  assigneeId: string;
+  comments?: string;
+  createdAt: string;
+  completedAt?: string;
+}
+
+export const teamMembersData: TeamMember[] = [
+  {
+    id: "TM-001",
+    name: "Иванов Иван Иванович",
+    position: "Старший менеджер",
+    department: "Продажи",
+    assignedTasks: 12,
+    pendingTasks: 3,
+    completionRate: 87,
+    workloadLevel: "Высокая",
+    isOnline: true,
+    avgTaskTime: 2.5
+  },
+  {
+    id: "TM-002",
+    name: "Петрова Светлана Александровна",
+    position: "Юрист",
+    department: "Юридический",
+    assignedTasks: 8,
+    pendingTasks: 2,
+    completionRate: 92,
+    workloadLevel: "Средняя",
+    isOnline: true,
+    avgTaskTime: 3.2
+  },
+  {
+    id: "TM-003",
+    name: "Сидоров Алексей Владимирович",
+    position: "Финансовый аналитик",
+    department: "Финансы",
+    assignedTasks: 15,
+    pendingTasks: 6,
+    completionRate: 78,
+    workloadLevel: "Перегрузка",
+    isOnline: false,
+    avgTaskTime: 4.1
+  },
+  {
+    id: "TM-004",
+    name: "Козлова Мария Петровна",
+    position: "Менеджер",
+    department: "Продажи",
+    assignedTasks: 6,
+    pendingTasks: 1,
+    completionRate: 94,
+    workloadLevel: "Низкая",
+    isOnline: true,
+    avgTaskTime: 1.8
+  }
+];
+
+export const tasksData: Task[] = [
+  {
+    id: "TSK-001",
+    title: "Согласование условий поставки",
+    type: "Согласование условий",
+    status: "В работе",
+    deadline: "2024-06-20",
+    priority: "Высокий",
+    dealId: "DL-2024-001",
+    assigneeId: "TM-001",
+    comments: "Требуется уточнение по срокам",
+    createdAt: "2024-06-15"
+  },
+  {
+    id: "TSK-002",
+    title: "Проверка договора на соответствие",
+    type: "Юридическая проверка",
+    status: "Новая",
+    deadline: "2024-06-22",
+    priority: "Средний",
+    dealId: "DL-2024-002",
+    assigneeId: "TM-002",
+    createdAt: "2024-06-17"
+  },
+  {
+    id: "TSK-003",
+    title: "Анализ рентабельности сделки",
+    type: "Финансовая проверка",
+    status: "Просроченная",
+    deadline: "2024-06-16",
+    priority: "Критический",
+    dealId: "DL-2024-003",
+    assigneeId: "TM-003",
+    comments: "Просрочена на 1 день",
+    createdAt: "2024-06-10"
+  }
+];
+
+export const teamKpiData = [
+  {
+    title: "Активные задачи",
+    value: 43,
+    icon: "tasks",
+    bgColor: "bg-blue-50",
+    iconColor: "text-blue-600",
+    valueColor: "text-blue-800"
+  },
+  {
+    title: "В SLA",
+    value: 38,
+    icon: "check",
+    bgColor: "bg-green-50",
+    iconColor: "text-green-600",
+    valueColor: "text-green-800"
+  },
+  {
+    title: "Вне SLA",
+    value: 5,
+    icon: "alert",
+    bgColor: "bg-red-50",
+    iconColor: "text-red-600",
+    valueColor: "text-red-800"
+  },
+  {
+    title: "Среднее время",
+    value: "2.8ч",
+    icon: "clock",
+    bgColor: "bg-orange-50",
+    iconColor: "text-orange-600",
+    valueColor: "text-orange-800"
+  },
+  {
+    title: "Завершено",
+    value: "89%",
+    icon: "percentage",
+    bgColor: "bg-emerald-50",
+    iconColor: "text-emerald-600",
+    valueColor: "text-emerald-800"
+  },
+  {
+    title: "Новые за день",
+    value: 12,
+    icon: "plus",
+    bgColor: "bg-purple-50",
+    iconColor: "text-purple-600",
+    valueColor: "text-purple-800"
   }
 ];

@@ -29,6 +29,7 @@ const iconMap: Record<string, any> = {
   "layout-dashboard": LayoutDashboard,
   "dashboard": LayoutDashboard,
   "deal-profitability": DollarSign,
+  "users": Users,
   "client-insights": Users,
   "product-effectiveness": Package,
   "sales-funnel": BarChart2,
