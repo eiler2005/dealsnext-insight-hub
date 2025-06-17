@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -6,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import Dashboard from "./pages/Dashboard";
+import Deals from "./pages/Deals";
 import DealProfitability from "./pages/DealProfitability";
 import ClientInsights from "./pages/ClientInsights";
 import ProductEffectiveness from "./pages/ProductEffectiveness";
@@ -30,6 +32,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/about" element={<AboutSystem />} />
+            <Route path="/deals" element={<Deals />} />
             <Route path="/deal-profitability" element={<DealProfitability />} />
             <Route path="/client-insights" element={<ClientInsights />} />
             <Route path="/product-effectiveness" element={<ProductEffectiveness />} />
