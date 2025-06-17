@@ -39,7 +39,7 @@ function getSlaByType(
   clients.forEach((c) => {
     const type = c.type ?? "Станд.";
     if (!byType[type]) byType[type] = { sum: 0, count: 0 };
-    byType[type].sum += c.sla;
+    byType[type].sum += Number(c.sla); // Convert to number explicitly
     byType[type].count += 1;
   });
   return Object.entries(byType).map(([type, v]) => ({

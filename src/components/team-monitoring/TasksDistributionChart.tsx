@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import type { TeamMember } from "@/data/mockData";
 
 interface TasksDistributionChartProps {
@@ -50,11 +50,11 @@ const TasksDistributionChart = ({ members }: TasksDistributionChartProps) => {
             />
             <YAxis />
             <Tooltip />
-            <Bar 
-              dataKey="tasks" 
-              fill={(entry) => getBarColor(entry.workload)}
-              name="Всего задач"
-            />
+            <Bar dataKey="tasks" name="Всего задач">
+              {chartData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={getBarColor(entry.workload)} />
+              ))}
+            </Bar>
             <Bar 
               dataKey="pending" 
               fill="#f87171"
