@@ -97,13 +97,18 @@ export interface Client {
 
 export interface Deal {
   id: string;
-  clientName: string;
-  product: string;
+  client: string;
+  products: string[];
   amount: number;
-  profit: number;
-  status: "Выполнена" | "В работе" | "Отменена";
-  manager: string;
-  date: string;
+  status: string;
+  startDate: string;
+  expectedEndDate: string;
+  responsible: string;
+  sla: string;
+  marginality: string;
+  profitability: number;
+  hasUrgentTasks: boolean;
+  conditionsType: string;
 }
 
 export interface TeamMember {
@@ -137,29 +142,29 @@ export const kpiData = [
     title: "Общая прибыль",
     value: "₽45.6M",
     change: "+12.5%",
-    trend: "up" as const,
-    icon: "dollar-sign"
+    changeType: "increase" as const,
+    icon: DollarSign
   },
   {
     title: "Активные сделки",
     value: "127",
     change: "+8.3%",
-    trend: "up" as const,
-    icon: "trending-up"
+    changeType: "increase" as const,
+    icon: BarChart2
   },
   {
     title: "Новые клиенты",
     value: "23",
     change: "+15.2%",
-    trend: "up" as const,
-    icon: "users"
+    changeType: "increase" as const,
+    icon: Users
   },
   {
     title: "Средний SLA",
     value: "4.2 дня",
     change: "-0.8 дня",
-    trend: "down" as const,
-    icon: "clock"
+    changeType: "decrease" as const,
+    icon: LayoutDashboard
   }
 ];
 
@@ -178,26 +183,34 @@ export const aiInsightsData = [
   {
     title: "Рост конверсии",
     description: "Конверсия РКО выросла на 23% благодаря новым условиям",
-    impact: "high" as const,
-    type: "positive" as const
+    icon: BarChart2,
+    color: "text-green-600",
+    bgColor: "bg-green-100",
+    delay: "0.3s"
   },
   {
     title: "Риск оттока",
     description: "3 крупных клиента показывают признаки снижения активности",
-    impact: "high" as const,
-    type: "warning" as const
+    icon: Users,
+    color: "text-red-600",
+    bgColor: "bg-red-100",
+    delay: "0.4s"
   },
   {
     title: "Новая возможность",
     description: "Овердрафт показывает потенциал роста в сегменте МСБ",
-    impact: "medium" as const,
-    type: "opportunity" as const
+    icon: DollarSign,
+    color: "text-blue-600",
+    bgColor: "bg-blue-100",
+    delay: "0.5s"
   },
   {
     title: "Оптимизация SLA",
     description: "Автоматизация процессов может сократить SLA на 15%",
-    impact: "medium" as const,
-    type: "insight" as const
+    icon: BrainCircuit,
+    color: "text-purple-600",
+    bgColor: "bg-purple-100",
+    delay: "0.6s"
   }
 ];
 
@@ -257,7 +270,7 @@ export const clientsData: Client[] = [
 ];
 
 // Данные сделок для прибыльности
-export const dealProfitabilityData: Deal[] = [
+export const dealProfitabilityData = [
   {
     id: "D001",
     clientName: "ООО \"ТехПром\"",
@@ -470,62 +483,82 @@ export const teamKpiData = [
   {
     title: "Активные задачи",
     value: "35",
-    change: "+5",
-    trend: "up" as const
+    icon: "tasks",
+    bgColor: "bg-blue-50",
+    iconColor: "text-blue-600",
+    valueColor: "text-blue-800"
   },
   {
     title: "Средняя нагрузка",
     value: "11.7",
-    change: "-2.3",
-    trend: "down" as const
+    icon: "check",
+    bgColor: "bg-green-50",
+    iconColor: "text-green-600",
+    valueColor: "text-green-800"
   },
   {
     title: "Выполнение в срок",
     value: "85%",
-    change: "+3%",
-    trend: "up" as const
+    icon: "percentage",
+    bgColor: "bg-emerald-50",
+    iconColor: "text-emerald-600",
+    valueColor: "text-emerald-800"
   },
   {
     title: "Просроченные",
     value: "4",
-    change: "+1",
-    trend: "up" as const
+    icon: "alert",
+    bgColor: "bg-red-50",
+    iconColor: "text-red-600",
+    valueColor: "text-red-800"
   }
 ];
 
 // Данные сделок (общий список)
-export const dealsData = [
+export const dealsData: Deal[] = [
   {
     id: "D001",
     client: "ООО \"ТехПром\"",
     products: ["РКО", "Овердрафт"],
     amount: 2500000,
-    status: "Выполнена",
+    status: "Завершена",
+    startDate: "2025-05-01",
+    expectedEndDate: "2025-06-15",
+    responsible: "Иванов И.И.",
+    sla: "В срок",
     marginality: "Высокая",
-    conditionsType: "Индивидуальные",
-    manager: "Иванов И.И.",
-    lastUpdate: "2025-06-15"
+    profitability: 375000,
+    hasUrgentTasks: false,
+    conditionsType: "Индивидуальные"
   },
   {
     id: "D002",
     client: "АО \"ЛогистикГрупп\"",
     products: ["Эквайринг"],
     amount: 1800000,
-    status: "В работе",
+    status: "Исполняется",
+    startDate: "2025-05-15",
+    expectedEndDate: "2025-06-30",
+    responsible: "Петрова А.С.",
+    sla: "В срок",
     marginality: "Средняя",
-    conditionsType: "Стандартные",
-    manager: "Петрова А.С.",
-    lastUpdate: "2025-06-18"
+    profitability: 270000,
+    hasUrgentTasks: true,
+    conditionsType: "Стандартные"
   },
   {
     id: "D003",
     client: "ЗАО \"Ритейл-Холдинг\"",
     products: ["РКО", "ДБО"],
     amount: 3200000,
-    status: "Выполнена",
+    status: "Завершена",
+    startDate: "2025-04-20",
+    expectedEndDate: "2025-06-18",
+    responsible: "Сидоров П.П.",
+    sla: "В срок",
     marginality: "Высокая",
-    conditionsType: "Индивидуальные",
-    manager: "Сидоров П.П.",
-    lastUpdate: "2025-06-18"
+    profitability: 480000,
+    hasUrgentTasks: false,
+    conditionsType: "Индивидуальные"
   }
 ];
