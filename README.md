@@ -18,6 +18,8 @@
 
 📋 **[Обзор интерфейса и скриншоты](UI_Overview.md)**
 
+And app URL (https://dealsnext-insight-hub-02.lovable.app/)
+
 ---
 
 ## 🌟 DealsNext Suite Landing Page
