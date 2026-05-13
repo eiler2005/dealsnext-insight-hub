@@ -1,7 +1,32 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "dealsnext-insight-hub",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
+  "description": "B2B sales-analytics & deal-intelligence dashboard built with React 18, TypeScript, Vite, and shadcn/ui.",
+  "keywords": [
+    "react",
+    "typescript",
+    "vite",
+    "shadcn-ui",
+    "tailwindcss",
+    "tanstack-query",
+    "recharts",
+    "b2b",
+    "analytics",
+    "dashboard",
+    "sales",
+    "portfolio"
+  ],
+  "homepage": "https://dealsnext-insight-hub-02.lovable.app/",
+  "bugs": {
+    "url": "https://github.com/eiler2005/dealsnext-insight-hub/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eiler2005/dealsnext-insight-hub.git"
+  },
+  "license": "MIT",
+  "author": "Denis Ermilov <denis.ermilov@gmail.com> (https://github.com/eiler2005)",
   "type": "module",
   "scripts": {
     "dev": "vite",
