@@ -36,8 +36,8 @@ There is no backend in `v0.1`. The current bottleneck for evolution is the data 
 flowchart LR
     User([Sales user / Manager]) -->|HTTPS| SPA[DealsNext Insight Hub<br/>React SPA]
     SPA -->|imports| Mock[(mockData.ts<br/>Typed fixtures)]
-    SPA -. future .->|fetch via TanStack Query| API[(Backend API<br/>not implemented)]
-    SPA --> CDN[(Static hosting<br/>Lovable preview / Vercel)]
+    SPA -. future: via TanStack Query .-> API[(Backend API<br/>not implemented)]
+    SPA --> CDN[(Static hosting<br/>Vercel / Lovable preview)]
 ```
 
 The dashed edge to `API` is the migration target tracked in [`IMPROVEMENTS.md`](IMPROVEMENTS.md) (`IMP-04`, `IMP-05`).
@@ -83,20 +83,20 @@ Single-level flat routes, no nested layouts, single `Layout` wrapper. Defined in
 
 ```mermaid
 flowchart LR
-    Root[/] --> Dashboard
-    About[/about] --> AboutSystem
-    Dl[/deals] --> Deals
-    TM[/team-monitoring] --> TeamMonitoring
-    DP[/deal-profitability] --> DealProfitability
-    CI[/client-insights] --> ClientInsights
-    PE[/product-effectiveness] --> ProductEffectiveness
-    SF[/sales-funnel] --> SalesFunnel
-    AR[/ai-recommendations] --> AiRecommendations
-    RE[/reports-export] --> ReportsExport
-    PR[/product-registry] --> ProductRegistry
-    CR[/client-registry] --> ClientRegistry
-    IC[/individual-conditions] --> IndividualConditions
-    Star[*] --> NotFound
+    Root["/"] --> Dashboard
+    About["/about"] --> AboutSystem
+    Dl["/deals"] --> Deals
+    TM["/team-monitoring"] --> TeamMonitoring
+    DP["/deal-profitability"] --> DealProfitability
+    CI["/client-insights"] --> ClientInsights
+    PE["/product-effectiveness"] --> ProductEffectiveness
+    SF["/sales-funnel"] --> SalesFunnel
+    AR["/ai-recommendations"] --> AiRecommendations
+    RE["/reports-export"] --> ReportsExport
+    PR["/product-registry"] --> ProductRegistry
+    CR["/client-registry"] --> ClientRegistry
+    IC["/individual-conditions"] --> IndividualConditions
+    Star["*"] --> NotFound
 ```
 
 | Path | Page | Purpose |
